@@ -128,3 +128,37 @@
 </body>
 
 </html>
+<script> 
+
+
+    $(document).ready(function(){
+        $(".text-uppercase").hide();
+        $(".view").click(function(){
+           $(".front").hide(); 
+           $(".text-uppercase").show();
+        });
+
+    });
+ 
+</script>
+
+<script>
+
+    window.onload = function () {
+        document.documentElement.style.overflow = 'hidden';  // firefox, chrome
+        document.body.scroll = "no"; // ie only
+    }
+
+    function reloadScrollBars() {
+        document.documentElement.style.overflow = 'auto';  // firefox, chrome
+        document.body.scroll = "yes"; // ie only
+    }
+
+    function create() {
+        var url= "signup.html"; 
+        window.location = url; 
+    }
+
+
+
+</script>
