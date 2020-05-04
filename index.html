@@ -7,11 +7,9 @@
     <title>Home - ideaX</title>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
-
     <link rel="stylesheet" href="css/styles.min.css">
 </head>
 
@@ -23,7 +21,7 @@
                 aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-align-justify"></i></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger" href="#">sign
+                    <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger" href="signup.html">sign
                             in</a>
                     </li>
                 </ul>
@@ -45,17 +43,6 @@
                 <!-- <img src="img/icons/expand_more-black-48dp.svg" class="js-scroll-trigger" > -->
                 <!-- <a class="btn btn-primary btn-xl js-scroll-trigger" role="button" href="#services">create a blog</a> -->
             </div>
-            <div class="front">
-                <div class="select">
-                    <div style="position: relative; top: 50px;">
-                        <div><h3><b>Welcome to ideaX</b></h3></div>
-                    </div>
-                    <div class="btns">
-                        <button id="view" class="btn btn-primary view" data-aos="fade-up" type="button" onclick="reloadScrollBars()">View blogs</button>
-                        <button class="btn btn-primary write" data-aos="fade-up" type="button" onclick="create()">Create a blog</button>
-                    </div>
-                </div>
-            </div> 
         </div>
     </header>
     <section class="text-center bg-dark" id="about" style="height: 350px;">
@@ -128,37 +115,3 @@
 </body>
 
 </html>
-<script> 
-
-
-    $(document).ready(function(){
-        $(".text-uppercase").hide();
-        $(".view").click(function(){
-           $(".front").hide(); 
-           $(".text-uppercase").show();
-        });
-
-    });
- 
-</script>
-
-<script>
-
-    window.onload = function () {
-        document.documentElement.style.overflow = 'hidden';  // firefox, chrome
-        document.body.scroll = "no"; // ie only
-    }
-
-    function reloadScrollBars() {
-        document.documentElement.style.overflow = 'auto';  // firefox, chrome
-        document.body.scroll = "yes"; // ie only
-    }
-
-    function create() {
-        var url= "signup.html"; 
-        window.location = url; 
-    }
-
-
-
-</script>
