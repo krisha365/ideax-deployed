@@ -217,6 +217,8 @@ input#search-bar:focus:-ms-placeholder {
     padding-top: 22px;
     margin-top: 100px;
     font-size: 20px;
+    width: -moz-available;
+    height: -moz-available;
     height: -webkit-fill-available;
     width: -webkit-fill-available;
     position: absolute;
