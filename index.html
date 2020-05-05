@@ -43,6 +43,17 @@
                 <!-- <img src="img/icons/expand_more-black-48dp.svg" class="js-scroll-trigger" > -->
                 <!-- <a class="btn btn-primary btn-xl js-scroll-trigger" role="button" href="#services">create a blog</a> -->
             </div>
+            <div class="front">
+                <div class="select">
+                    <div style="position: relative; top: 50px;">
+                        <div><h3><b>Welcome to ideaX</b></h3></div>
+                    </div>
+                    <div class="btns">
+                        <button id="view" class="btn btn-primary view" data-aos="fade-up" type="button" onclick="reloadScrollBars()">View blogs</button>
+                        <button class="btn btn-primary write" data-aos="fade-up" type="button" onclick="create()">Create a blog</button>
+                    </div>
+                </div>
+            </div> 
         </div>
     </header>
     <section class="text-center bg-dark" id="about" style="height: 350px;">
@@ -115,3 +126,38 @@
 </body>
 
 </html>
+
+<script> 
+
+
+    $(document).ready(function(){
+        $(".text-uppercase").hide();
+        $(".view").click(function(){
+           $(".front").hide(); 
+           $(".text-uppercase").show();
+        });
+
+    });
+ 
+</script>
+
+<script>
+
+    window.onload = function () {
+        document.documentElement.style.overflow = 'hidden';  // firefox, chrome
+        document.body.scroll = "no"; // ie only
+    }
+
+    function reloadScrollBars() {
+        document.documentElement.style.overflow = 'auto';  // firefox, chrome
+        document.body.scroll = "yes"; // ie only
+    }
+
+    function create() {
+        var url= "signup.html"; 
+        window.location = url; 
+    }
+
+
+
+</script>
