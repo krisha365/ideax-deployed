@@ -7,6 +7,69 @@
   src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'), url(https://example.com/MaterialIcons-Regular.woff) format('woff'), url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
 }
 
+/* modified header */
+
+
+.gradient-shadow {
+  position: relative;
+  color: #252B37;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  background-position: center 0;
+  background-image: url("../img/fullsize/Web\ 1920\ –\ 1.png");
+  background-attachment: fixed;
+  animation: textColor 10s ease infinite;
+}
+
+/* #151823 */
+
+.gradient-shadow::after {
+  position: absolute;
+  content: "";
+  top: 5vw;
+  left: 0;
+  right: 0;
+  z-index: -2;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  transform: scale(1);
+  -webkit-filter: blur(vw);
+  -moz-filter: blur(3.5vw);
+  -ms-filter: blur(3.5vw);
+  filter: blur(3.5vw);
+  background: linear-gradient(270deg ,#eb3812, #7e0fff);
+  background-size: 200% 200%;
+  animation: animateGlow 10s ease infinite;
+}
+@keyframes animateGlow {
+  0% {
+    background-position: 0% 100%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
+}
+@keyframes textColor {
+  0% {
+    color: #7e0fff;
+  }
+  50% {
+    color: #eb3812;
+  }
+  100% {
+    color: #7e0fff;
+  }
+}
+
+/* modified header ends */
+
+
+
 .material-icons.md-36 {
   font-size: 36px;
 }
