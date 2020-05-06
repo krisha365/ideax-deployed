@@ -28,7 +28,18 @@
             </div>
         </div>
     </nav>
-    <header class="masthead text-center text-white d-flex header-modified">
+    <div class="front">
+        <div class="select">
+            <div style="position: relative; top: 50px;">
+                <div><h3><b>Welcome to ideaX</b></h3></div>
+            </div>
+            <div class="btns">
+                <button id="view" class="btn btn-primary view" data-aos="fade-up" type="button" onclick="reloadScrollBars()">View blogs</button>
+                <button class="btn btn-primary write" data-aos="fade-up" type="button" onclick="create()">Create a blog</button>
+            </div>
+        </div>
+    </div>
+    <header id="header-modified" class="masthead text-center text-white d-flex">
         <div class="container my-auto">
             <div class="row">
                 <div class="col-lg-10 mx-auto">
@@ -43,17 +54,7 @@
                 <!-- <img src="img/icons/expand_more-black-48dp.svg" class="js-scroll-trigger" > -->
                 <!-- <a class="btn btn-primary btn-xl js-scroll-trigger" role="button" href="#services">create a blog</a> -->
             </div>
-            <div class="front">
-                <div class="select">
-                    <div style="position: relative; top: 50px;">
-                        <div><h3><b>Welcome to ideaX</b></h3></div>
-                    </div>
-                    <div class="btns">
-                        <button id="view" class="btn btn-primary view" data-aos="fade-up" type="button" onclick="reloadScrollBars()">View blogs</button>
-                        <button class="btn btn-primary write" data-aos="fade-up" type="button" onclick="create()">Create a blog</button>
-                    </div>
-                </div>
-            </div> 
+             
         </div>
     </header>
     <section class="text-center bg-dark" id="about" style="height: 350px;">
@@ -123,41 +124,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
     <script src="js/script.min.js"></script>
     <script src="js/animation.min.js"></script>
+    <script src="js/messagebox.min.js"></script>
 </body>
 
 </html>
-
-<script> 
-
-
-    $(document).ready(function(){
-        $(".text-uppercase").hide();
-        $(".view").click(function(){
-           $(".front").hide(); 
-           $(".text-uppercase").show();
-        });
-
-    });
- 
-</script>
-
-<script>
-
-    window.onload = function () {
-        document.documentElement.style.overflow = 'hidden';  // firefox, chrome
-        document.body.scroll = "no"; // ie only
-    }
-
-    function reloadScrollBars() {
-        document.documentElement.style.overflow = 'auto';  // firefox, chrome
-        document.body.scroll = "yes"; // ie only
-    }
-
-    function create() {
-        var url= "signup.html"; 
-        window.location = url; 
-    }
-
-
-
-</script>
