@@ -4125,6 +4125,7 @@ input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].bt
 }
 
 .navbar-light .navbar-toggler {
+    width: auto;
     color: rgba(0, 0, 0, .5);
     border-color: rgba(0, 0, 0, .1)
 }
