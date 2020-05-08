@@ -6,7 +6,9 @@
   /* For IE6-8 */
   src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://example.com/MaterialIcons-Regular.woff2) format('woff2'), url(https://example.com/MaterialIcons-Regular.woff) format('woff'), url(https://example.com/MaterialIcons-Regular.ttf) format('truetype');
 }
+@import url("https://fonts.googleapis.com/css?family=Bree+Serif&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
+
 
 /* modified header */
 
@@ -425,7 +427,7 @@ input[type=checkbox] {
   visibility: hidden;
 }
 
-input[type=text] {
+.title-input {
   margin: 0 auto;
   width: 50%;
   padding: 20px;
@@ -555,6 +557,8 @@ input[type=text] {
 }
 
 /* fileupload Code */
+
+
 
 /* user profile css code */
 
@@ -889,5 +893,3 @@ ul.producers li:hover {
   width: 100%;
   height: 220px;
 }
-
-/* user profile code ends */
