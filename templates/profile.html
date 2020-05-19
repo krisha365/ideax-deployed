@@ -21,7 +21,7 @@
 <body id="page-top" class="profile-main">
     <nav class="navbar navbar-light navbar-expand-xl fixed-top" id="mainNav">
         <div class="container-fluid"><a class="navbar-brand js-scroll-trigger" style="color: #eb3812;"
-            href="index.html">ideaX</a><button data-toggle="collapse" data-target="#navbarResponsive"
+            href="{% url 'index' %}">ideaX</a><button data-toggle="collapse" data-target="#navbarResponsive"
             class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive" aria-expanded="false"
             aria-label="Toggle navigation"><i class="fa fa-align-justify"></i></button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -111,6 +111,7 @@
                 <div class="profile-body">
                     <div class="profile-posts tab" style="margin: 0; padding: 0; box-sizing:border-box" >
                         <ul class="producers">
+                        {% for blog in five %}
                             <li><a href="{% url 'separateblog' %}" title="Colorful Solutions"><img src="{% static 'img/blog-image/1.jpg' %}" class="profile-blog-size"></a>
                                 <br/>
                                 <p class="no-margin-font">Colorful Solutions</p><br/>
@@ -118,46 +119,8 @@
                                 <a class="btn btn-primary signup-messagebox" href="createblog.html">Delete</a> -->
                               
                             </li>
-                            <li><a href="{% url 'separateblog' %}" title="Baltic Wood"><img src="{% static 'img/blog-image/2.jpg' %}" class="profile-blog-size"></a>
-                                <br/>
-                                <p class="no-margin-font">how practically AI changing lives in day to day life</p><br/>
-                                <!-- <a class="btn btn-primary signup-messagebox" href="createblog.html">View</a>
-                                <a class="btn btn-primary signup-messagebox" href="createblog.html">Delete</a> -->
-                              
-                            </li>
-                            <li><a href="separate-blog.html" title="Baltic Wood"><img src="img/blog-image/3.gif" class="profile-blog-size"></a>
-                                <br/>
-                                <p class="no-margin-font">Design for any media</p><br/>
+                            {% endfor %}
 
-                              
-                            </li>
-                            <li><a href="separate-blog.html" title="Baltic Wood"><img src="img/blog-image/4.jpg" class="profile-blog-size"></a>
-                                <br/>
-                                <p class="no-margin-font">A moment on the lips</p><br/>
-
-                              
-                            </li>
-                            <li><a href="separate-blog.html" title="Baltic Wood"><img src="img/blog-image/5.jpg" class="profile-blog-size"></a>
-                                <br/>
-                                <p class="no-margin-font">A mint of creativity</p><br/>
-
-                              
-                            </li>
-                            <li><a href="separate-blog.html" title="Baltic Wood"><img src="img/blog-image/6.jpg" class="profile-blog-size"></a>
-                                <br/>
-                                <p class="no-margin-font">Visual Experience</p><br/>
-
-                              
-                            </li>
-
-                        <!-- <h1>Your Post</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa quia sunt itaque ut libero
-                            cupiditate ullam qui velit laborum placeat doloribus, non tempore nisi ratione error rem
-                            minima ducimus. Accusamus adipisci quasi at itaque repellat sed
-                            magni eius magnam repellendus. Quidem inventore repudiandae sunt odit. Aliquid facilis
-                            fugiat earum ex officia eveniet, nisi, similique ad ullam repudiandae molestias aspernatur
-                            qui autem, nam? Cupiditate ut quasi iste, eos perspiciatis maiores
-                            molestiae.</p> -->
                     </div>
                     <div class="profile-reviews tab">
                         <h1>User reviews</h1>

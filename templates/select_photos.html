@@ -31,7 +31,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="nav navbar-nav ml-auto">
                     <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger"
-                            style="color: #eb3812;" href="{% url 'profile' %}">Hello, User</a></li>
+                            style="color: #eb3812;" href="{% url 'profile' %}">Hello, {{ user.username }}</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger" href="{% url 'profile' %}"><img
                                 class="user-header-size" src="{% static 'img/separate-blog/person_2.jpg' %}"></a></li>
                 </ul>
