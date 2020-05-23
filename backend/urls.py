@@ -11,6 +11,7 @@ urlpatterns = [
     path('selectcategory/', views.selectcategory, name="selectcategory"),
     path('selectphotos/', views.selectphotos, name="selectphotos"),
     path('writecontent/', views.writecontent, name="writecontent"),
+    path('preview/', views.preview, name="preview"),
     path('logout', views.logout, name="logout"),
     path('login', views.login, name="login"),
     path('', views.index, name='index')

@@ -22,10 +22,34 @@ def selectcategory(request):
     return render(request, "select_category.html")
 
 def selectphotos(request):
-    return render(request, "select_photos.html")
+    context1 = {}
+    data = request.POST.getlist('category', None)
+    cat = ", ".join(data)
+    context1['category'] = cat
+    return render(request, "select_photos.html", context1)
 
 def writecontent(request):
-    return render(request, "write_content.html")
+    context1 = {}
+    cat = request.POST.get('category', None)
+    #img = request.FILES['pic']
+    """fs = FileSystemStorage()
+    filename = fs.save(myfile.name, myfile)
+    img = fs.url(filename)"""
+    context1['category'] = cat
+    #context1['img'] = img
+    return render(request, "write_content.html", context1)
+
+def preview(request):
+    context1 = {}
+    cat = request.POST.get('category', None)
+    #img = request.POST.get('pic', None)
+    title = request.POST.get('title', None)
+    content = request.POST.get('content', None)
+    context1['category'] = cat
+    #context1['img'] = img
+    context1['title'] = title
+    context1['content'] = content
+    return render(request, "preview.html", context1)
 
 def createblog(request):
     if request.user.is_authenticated:
