@@ -46,115 +46,118 @@
   </div>
   <div class="main center-font">
     <img style="height: 300px; width: 300px" src="{% static 'img/icons/reading-side.svg' %}">
-
+    {% block content %}
     <div class="main-container">
       <div>
         <h2 class="title">Choose your category</h2>
           <!--Rounded checkbox buttons-->
-          <div class="btn-group top" data-toggle="buttons" style="margin-top: 30px;">
-              <div>
-              <label class="btn btn-pink btn-rounded active btn-md form-check-label check">
-                  <input type="checkbox" class="form-check-input" autocomplete="off"> Fashion
-              </label>
-              </div>
-              &nbsp;&nbsp;
-              <div>
-              <label class="btn btn-pink btn-rounded btn-md form-check-label check">
-                  <input type="checkbox" class="form-check-input"> Food
-              </label>
-              </div>
-              &nbsp;&nbsp;
-              <div>
-              <label class="btn btn-pink btn-rounded btn-md form-check-label check">
-                  <input type="checkbox" class="form-check-input" autocomplete="off"> Finance
-              </label>
-              </div>
-              &nbsp;&nbsp;
-              <div>
-              <label class="btn btn-pink btn-rounded btn-md form-check-label check">
-                  <input type="checkbox" class="form-check-input" autocomplete="off"> Travel
-              </label>
-              </div>
-              &nbsp;&nbsp;
-              <div>
-              <label class="btn btn-pink btn-rounded btn-md form-check-label check">
-                  <input type="checkbox" class="form-check-input" autocomplete="off"> Music
-              </label>
-              </div>
-          </div>
-          <br/>
-          <div class="btn-group middle" data-toggle="buttons">
-              <div>
-              <label class="btn btn-pink btn-rounded active btn-md form-check-label check">
-                  <input type="checkbox" class="form-check-input" autocomplete="off"> Lifestye
-              </label>
-              </div>
-              &nbsp;&nbsp;
-              <div>
-              <label class="btn btn-pink btn-rounded btn-md form-check-label check">
-                  <input type="checkbox" class="form-check-input" autocomplete="off">  Fitnness   
-              </label>
-              </div>
-              &nbsp;&nbsp;
-              <div>
-              <label class="btn btn-pink btn-rounded btn-md form-check-label check">
-                  <input type="checkbox" class="form-check-input" autocomplete="off"> DIY
-              </label>
-              </div>
-              &nbsp;&nbsp;
-              <div>
-              <label class="btn btn-pink btn-rounded btn-md form-check-label check">
-                  <input type="checkbox" class="form-check-input" autocomplete="off"> Political
-              </label>
-              </div>
-              &nbsp;&nbsp;
-              <div>
-              <label class="btn btn-pink btn-rounded btn-md form-check-label check">
-                  <input type="checkbox" class="form-check-input" autocomplete="off"> Sports
-              </label>
-              </div>
-          </div><br/>
-          <div class="btn-group bottom" data-toggle="buttons">
-              <div>
-              <label class="btn btn-pink btn-rounded active btn-md form-check-label check">
-                  <input type="checkbox" class="form-check-input" autocomplete="off"> Parenting
-              </label>
-              </div>
-              &nbsp;&nbsp;
-              <div>
-              <label class="btn btn-pink btn-rounded btn-md form-check-label check">
-                  <input type="checkbox" class="form-check-input" autocomplete="off"> Buisness
-              </label>
-              </div>
-              &nbsp;&nbsp;
-              <div>
-              <label class="btn btn-pink btn-rounded btn-md form-check-label check">
-                  <input type="checkbox" class="form-check-input" autocomplete="off"> Personal
-              </label>
-              </div>
-              &nbsp;&nbsp;
-              <div>
-              <label class="btn btn-pink btn-rounded btn-md form-check-label check">
-                  <input type="checkbox" class="form-check-input" autocomplete="off"> Movie
-              </label>
-              </div>
-              &nbsp;&nbsp;
-              <div>
-              <label class="btn btn-pink btn-rounded btn-md form-check-label check">
-                  <input type="checkbox" class="form-check-input" autocomplete="off"> News
-              </label>
-              </div>
-          </div>
-
+            <form action="/selectphotos/" method="POST" id="selectcat">
+              {% csrf_token %}
+            <div class="btn-group top" data-toggle="buttons" style="margin-top: 30px;">
+                <div>
+                <label class="btn btn-pink btn-rounded active btn-md form-check-label check">
+                    <input type="checkbox" id="category" name="category" class="form-check-input" value="Fashion"> Fashion
+                </label>
+                </div>
+                &nbsp;&nbsp;
+                <div>
+                <label class="btn btn-pink btn-rounded btn-md form-check-label check">
+                    <input type="checkbox" id="category" name="category" class="form-check-input" value="Food"> Food
+                </label>
+                </div>
+                &nbsp;&nbsp;
+                <div>
+                <label class="btn btn-pink btn-rounded btn-md form-check-label check">
+                    <input type="checkbox" id="category" name="category" class="form-check-input" value="Finance"> Finance
+                </label>
+                </div>
+                &nbsp;&nbsp;
+                <div>
+                <label class="btn btn-pink btn-rounded btn-md form-check-label check">
+                    <input type="checkbox" id="category" name="category" class="form-check-input" value="Travel"> Travel
+                </label>
+                </div>
+                &nbsp;&nbsp;
+                <div>
+                <label class="btn btn-pink btn-rounded btn-md form-check-label check">
+                    <input type="checkbox" id="category" name="category" class="form-check-input" value="Music"> Music
+                </label>
+                </div>
+            </div>
+            <br/>
+            <div class="btn-group middle" data-toggle="buttons">
+                <div>
+                <label class="btn btn-pink btn-rounded active btn-md form-check-label check">
+                    <input type="checkbox" id="category" name="category" class="form-check-input" value="Lifestye"> Lifestye
+                </label>
+                </div>
+                &nbsp;&nbsp;
+                <div>
+                <label class="btn btn-pink btn-rounded btn-md form-check-label check">
+                    <input type="checkbox" id="category" name="category" class="form-check-input" value="Fitness"> Fitness   
+                </label>
+                </div>
+                &nbsp;&nbsp;
+                <div>
+                <label class="btn btn-pink btn-rounded btn-md form-check-label check">
+                    <input type="checkbox" id="category" name="category" class="form-check-input" value="DIY"> DIY
+                </label>
+                </div>
+                &nbsp;&nbsp;
+                <div>
+                <label class="btn btn-pink btn-rounded btn-md form-check-label check">
+                    <input type="checkbox" id="category" name="category" class="form-check-input" value="Political"> Political
+                </label>
+                </div>
+                &nbsp;&nbsp;
+                <div>
+                <label class="btn btn-pink btn-rounded btn-md form-check-label check">
+                    <input type="checkbox" id="category" name="category" class="form-check-input" value="Sports"> Sports
+                </label>
+                </div>
+            </div><br/>
+            <div class="btn-group bottom" data-toggle="buttons">
+                <div>
+                <label class="btn btn-pink btn-rounded active btn-md form-check-label check">
+                    <input type="checkbox" id="category" name="category" class="form-check-input" value="Parenting"> Parenting
+                </label>
+                </div>
+                &nbsp;&nbsp;
+                <div>
+                <label class="btn btn-pink btn-rounded btn-md form-check-label check">
+                    <input type="checkbox" id="category" name="category" class="form-check-input" value="Buisness"> Buisness
+                </label>
+                </div>
+                &nbsp;&nbsp;
+                <div>
+                <label class="btn btn-pink btn-rounded btn-md form-check-label check">
+                    <input type="checkbox" id="category" name="category" class="form-check-input" value="Personal"> Personal
+                </label>
+                </div>
+                &nbsp;&nbsp;
+                <div>
+                <label class="btn btn-pink btn-rounded btn-md form-check-label check">
+                    <input type="checkbox" id="category" name="category" class="form-check-input" value="Movie"> Movie
+                </label>
+                </div>
+                &nbsp;&nbsp;
+                <div>
+                <label class="btn btn-pink btn-rounded btn-md form-check-label check">
+                    <input type="checkbox" id="category" name="category" class="form-check-input" value="News"> News
+                </label>
+                </div>
+            </div>
+  
+        </div>
       </div>
-    </div>
-
+  
     <br />
-    <a href="{% url 'selectphotos' %}" class="btn btn-primary signup-messagebox">Choose photos</a>
-
-    <br /><br /><br /><br />
+    <!-- <a href="{% url 'selectphotos' %}" class="btn btn-primary signup-messagebox">Choose photos</a> -->
+      <input type="submit" class="btn btn-primary signup-messagebox" value="Choose photos" name="sub">
+      <br /><br /><br /><br />
+    </form>
+    {% endblock %}
   </div>
-
   <!-- script -->
   <script src="{% static 'js/jquery.min.js' %}"></script>
   <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>

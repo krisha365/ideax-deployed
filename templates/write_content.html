@@ -43,19 +43,25 @@
         <a class="active open-sans" href="{% url 'writecontent' %}"><i class="fa fa-fw fa-user"></i> Content</a>
         <a class="open-sans" href="#contact"><i class="fa fa-fw fa-envelope"></i> Finish</a>
     </div>
-    <div class="main center-font">
-        <form>
-            <div class="form-group">
-              <input type="text" class="form-control title-input" id="input-fileName" placeholder="Title">
-            </div>
-            <hr class="hr-modified">
-            <div class="form-group">
-              
-              <textarea id="textarea" rows="21" placeholder="What's on your mind?"></textarea>
-            </div>
-            <button id="btn-save" type="submit" class="btn btn-primary signup-messagebox" style="width: 15%;">Finish</button>
-          </form>
-    </div>
+    {% block content %}
+        <div class="main center-font">
+            <form action="/preview/" method="POST" id="pre">
+                {% csrf_token %}
+                <input type="hidden" name="category" value="{{ category }}">
+                <!-- <input type="hidden" name="pic" value="{{ img }}"> -->
+                <div class="form-group">
+                <input type="text" class="form-control title-input" id="input-fileName" name="title" placeholder="Title">
+                </div>
+                <hr class="hr-modified">
+                <div class="form-group">
+                
+                <textarea id="textarea" name="content" rows="21" placeholder="What's on your mind?"></textarea>
+                </div>
+                <input type="submit" name="sub" class="btn btn-primary signup-messagebox" value="Finish">
+            </form>  
+        </div>
+    {% endblock %}
+
 
 
     <!-- script -->
