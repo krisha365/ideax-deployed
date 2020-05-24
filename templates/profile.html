@@ -21,29 +21,32 @@
 <body id="page-top" class="profile-main">
     <nav class="navbar navbar-light navbar-expand-xl fixed-top" id="mainNav">
         <div class="container-fluid"><a class="navbar-brand js-scroll-trigger" style="color: #eb3812;"
-            href="{% url 'index' %}">ideaX</a><button data-toggle="collapse" data-target="#navbarResponsive"
-            class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive" aria-expanded="false"
-            aria-label="Toggle navigation"><i class="fa fa-align-justify"></i></button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="nav navbar-nav ml-auto">
-              <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger"
-                  style="color: #eb3812;" href="{% url 'profile' %}">Hello, User</a></li>
-              <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger" href="{% url 'profile' %}"><img
-                    class="user-header-size" src="{% static 'img/separate-blog/person_2.jpg' %}"></a></li>
-            </ul>
-          </div>
+                href="{% url 'index' %}">ideaX</a><button data-toggle="collapse" data-target="#navbarResponsive"
+                class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-align-justify"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger"
+                            style="color: #eb3812;" href="{% url 'profile' %}">Hello, User</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
+                            href="{% url 'profile' %}"><img class="user-header-size"
+                                src="{% static 'img/separate-blog/person_2.jpg' %}"></a></li>
+                </ul>
+            </div>
         </div>
-      </nav>
+    </nav>
 
     <div class="container">
         <div class="profile-header">
             <div class="avatar-edit">
-                <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
-                <label id="label" for="imageUpload"><i class="fa fa-pencil fa-2x fa-border bo" aria-hidden="true"></i>
-                </label>
             </div>
             <div class="profile-img">
-                <img src="{% static 'img/separate-blog/person_2.jpg' %}" width="200" alt="Profile Image">
+                <div class="profile-imge">
+                    
+                    <img src="{% static 'img/separate-blog/person_2.jpg' %}" width="200" style="display: block;"
+                        alt="Profile Image">
+                      <div class="edit">  <a href="#" class="iconic"><i style="color: #ddd;" class="fa fa-pencil"></i></a></div>
+                </div>
             </div>
             <div class="profile-nav-info">
                 <h3 class="user-name">Bright Code</h3>
@@ -114,15 +117,16 @@
 
 
                 <div class="profile-body">
-                    <div class="profile-posts tab" style="margin: 0; padding: 0; box-sizing:border-box" >
+                    <div class="profile-posts tab" style="margin: 0; padding: 0; box-sizing:border-box">
                         <ul class="producers">
-                        {% for blog in five %}
-                            <li><a href="{% url 'separateblog' %}" title="Colorful Solutions"><img src="{% static 'img/blog-image/1.jpg' %}" class="profile-blog-size"></a>
-                                <br/>
-                                <p class="no-margin-font">Colorful Solutions</p><br/>
+                            {% for blog in five %}
+                            <li><a href="{% url 'separateblog' %}" title="Colorful Solutions"><img
+                                        src="{% static 'img/blog-image/1.jpg' %}" class="profile-blog-size"></a>
+                                <br />
+                                <p class="no-margin-font">Colorful Solutions</p><br />
                                 <!-- <a class="btn btn-primary signup-messagebox" href="createblog.html">View</a>
                                 <a class="btn btn-primary signup-messagebox" href="createblog.html">Delete</a> -->
-                              
+
                             </li>
                             {% endfor %}
 
