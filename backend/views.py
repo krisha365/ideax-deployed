@@ -3,8 +3,11 @@ from django.http import HttpResponse
 from django.contrib import messages
 from .models import Blogs
 from django.contrib.auth.models import auth, User
+from base64 import b64encode
 
 # Create your views here.
+
+input_image = 0
 
 def index(request):
     return render(request, "index.html")
@@ -22,31 +25,42 @@ def selectcategory(request):
     return render(request, "select_category.html")
 
 def selectphotos(request):
-    context1 = {}
-    data = request.POST.getlist('category', None)
-    cat = ", ".join(data)
-    context1['category'] = cat
-    return render(request, "select_photos.html", context1)
+    if request.method == 'POST':
+        context1 = {}
+        data = request.POST.getlist('category', None)
+        print(data)
+        cat = ", ".join(data)
+        context1['category'] = cat
+        return render(request, "select_photos.html", context1)
+    else:
+        return render(request, "select_photos.html")
 
 def writecontent(request):
-    context1 = {}
-    cat = request.POST.get('category', None)
-    #img = request.FILES['pic']
-    """fs = FileSystemStorage()
-    filename = fs.save(myfile.name, myfile)
-    img = fs.url(filename)"""
-    context1['category'] = cat
-    #context1['img'] = img
-    return render(request, "write_content.html", context1)
+    if request.method == 'POST':
+        global input_image
+        context1 = {}
+        cat = request.POST.get('category', None)
+        print(cat)
+        context1['category'] = cat
+        inImg = request.FILES["files[]"].read()
+
+        encoded = b64encode(inImg).decode('ascii')
+        mime = "img/upload"
+        mime = mime + ";" if mime else ";"
+        input_image = "data:%sbase64,%s" % (mime, encoded)        
+        context1['photos'] = input_image
+        return render(request, "write_content.html", context1)
+    else:
+        return render(request, "write_content.html")
 
 def preview(request):
     context1 = {}
     cat = request.POST.get('category', None)
-    #img = request.POST.get('pic', None)
+    img = input_image
     title = request.POST.get('title', None)
     content = request.POST.get('content', None)
     context1['category'] = cat
-    #context1['img'] = img
+    context1['photos'] = img
     context1['title'] = title
     context1['content'] = content
     return render(request, "preview.html", context1)

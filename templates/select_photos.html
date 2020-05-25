@@ -117,7 +117,7 @@
 			reader.onload = function (e) {
         $('.image-upload-wrap').hide();
 
-        var html = "<div><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selFile file-upload-image' title='Click to remove'>" + f.name + "<br clear=\"left\"/></div>";
+        var html = "<div><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selFile file-upload-image' name='blog-image' title='Click to remove'>" + f.name + "<br clear=\"left\"/></div>";
 
         selDiv.append(html);
         $('.file-upload-content').show();        

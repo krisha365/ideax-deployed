@@ -15,6 +15,9 @@ class Blogs(models.Model):
     bloggerid = models.IntegerField()
     short_description = models.CharField(max_length = 500)
     content = models.TextField()
-    img = models.ImageField(upload_to='blog_images')
     category = models.CharField(max_length = 20)
+    blogid = models.IntegerField(primary_key=True, unique=True)
 
+class Blogs_images(models.Model):
+    blogid = models.IntegerField()
+    img = models.ImageField(upload_to='blog_images')

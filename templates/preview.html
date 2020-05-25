@@ -57,7 +57,7 @@ body{background-color: rgba(0, 0, 0, 0.5);color: #656565;font-family: 'Montserra
             <div class="col-lg-6 article" style="position: relative;left: 23%; background-color: #fff;">
                             
                 <div class="image-wrap">
-                    <img alt="The beautiful painting" id="image" class="article-image" src="{{ img }}">
+                    <img src="{{ photos }}" alt="The beautiful painting" id="image" class="article-image" name="files[]"  type="text">
                 </div>
                 <div class="article-name">
                     <h2 class="post-name" id="title">{{ title }}</h2>
@@ -69,7 +69,7 @@ body{background-color: rgba(0, 0, 0, 0.5);color: #656565;font-family: 'Montserra
                 <div class="post-description">
                     <p id="content">{{ content|linebreaks }}</p>
                         <div style="margin-left: 121px; width: 100%;">
-                        <a href="{% url 'writecontent' %}" class="btn btn-primary signup-messagebox" style="background-color: #eb3812;  border: none; border-radius: 20px;">&nbsp;&nbsp;&nbsp; Edit &nbsp;&nbsp;&nbsp;</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="{% url 'selectcategory' %}" class="btn btn-primary signup-messagebox" style="background-color: #eb3812;  border: none; border-radius: 20px;">&nbsp;&nbsp;&nbsp; Edit &nbsp;&nbsp;&nbsp;</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <a href="#" class="btn btn-primary signup-messagebox" style="background-color: #eb3812;  border: none; border-radius: 20px;">Proceed</a>
                     </div>
                 </div>
