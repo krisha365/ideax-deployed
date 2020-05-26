@@ -7,7 +7,16 @@ from base64 import b64encode
 
 # Create your views here.
 
-input_image = 0
+context1 = {}
+
+def handle_uploaded_file(f):
+    destination = open('media/%s' % f.name, 'wb+')
+
+    for chunk in f.chunks():
+        destination.write(chunk)
+    destination.close()
+    
+    
 
 def index(request):
     return render(request, "index.html")
@@ -26,7 +35,7 @@ def selectcategory(request):
 
 def selectphotos(request):
     if request.method == 'POST':
-        context1 = {}
+        global context1
         data = request.POST.getlist('category', None)
         print(data)
         cat = ", ".join(data)
@@ -37,30 +46,26 @@ def selectphotos(request):
 
 def writecontent(request):
     if request.method == 'POST':
-        global input_image
-        context1 = {}
+        global context1
+        context1['photos'] = {}
         cat = request.POST.get('category', None)
-        print(cat)
+        i = 0
         context1['category'] = cat
-        inImg = request.FILES["files[]"].read()
-
-        encoded = b64encode(inImg).decode('ascii')
-        mime = "img/upload"
-        mime = mime + ";" if mime else ";"
-        input_image = "data:%sbase64,%s" % (mime, encoded)        
-        context1['photos'] = input_image
+        mime = "/media/"
+        for inImg in request.FILES.getlist("files[]"):
+            handle_uploaded_file(inImg)
+            inImg = mime + str(inImg)
+            context1['photos'][i] = inImg
+            i = i + 1
         return render(request, "write_content.html", context1)
     else:
         return render(request, "write_content.html")
 
 def preview(request):
-    context1 = {}
-    cat = request.POST.get('category', None)
-    img = input_image
+    global context1
+    print(context1)
     title = request.POST.get('title', None)
     content = request.POST.get('content', None)
-    context1['category'] = cat
-    context1['photos'] = img
     context1['title'] = title
     context1['content'] = content
     return render(request, "preview.html", context1)
