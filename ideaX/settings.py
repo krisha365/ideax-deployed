@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -67,6 +68,8 @@ TEMPLATES = [
         },
     },
 ]
+
+DJANGO_WYSIWYG_FLAVOR = "ckeditor"
 
 WSGI_APPLICATION = 'ideaX.wsgi.application'
 
