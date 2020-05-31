@@ -54,7 +54,8 @@
       {% csrf_token %}
       <input type="hidden" name="category" value="{{ category }}">
       <div class="file-upload">
-          <button class="btn btn-primary signup-messagebox"  type="button" onclick="$('.file-upload-input').trigger( 'click' )">Select a photo </button>
+          <button class="btn btn-primary signup-messagebox" id="main_pic" name="main_pic" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Select a main photo </button>
+          <button class="btn btn-primary signup-messagebox"  type="button" onclick="$('.file-upload-input').trigger( 'click' )">Select photos for blog </button>
           <br/><br/>
           <div class="image-upload-wrap">
             <input class="file-upload-input" type='file' id="files" name="files[]" accept="*"
