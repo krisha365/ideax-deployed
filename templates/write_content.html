@@ -23,6 +23,8 @@
 
     
   </style>
+  {% load wysiwyg %}
+  {% wysiwyg_setup %}
     
 </head>
 
@@ -63,8 +65,7 @@
                 <div class="form-group">
                 
                 <!--<textarea id="textarea" name="content" rows="21" placeholder="What's on your mind?"></textarea> -->
-                {% load wysiwyg %}
-                {% wysiwyg_setup %}
+               
                 
                   <textarea id="textarea" name="content" cols="50"></textarea>
                 
@@ -72,7 +73,8 @@
                 
 
                 <hr class="hr-modified">
-                <textarea id="textarea" name="shortd" rows="9" placeholder="Write a short description of your blog"></textarea>
+                <textarea id="short" name="shortd" rows="9" placeholder="Write a short description of your blog"></textarea>
+                {% wysiwyg_editor "short" %}
                 </div>
                 <input type="submit" name="sub" class="btn btn-primary signup-messagebox" value="   Finish   ">
             </form>  
@@ -83,6 +85,8 @@
 
 
     <!-- script -->
+    <script src="{% static 'myapp/js/tinymce/tinymce.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'myapp/js/tinymce/custom.js' %}" ></script>
     <script src="{% static 'js/editor.js' %}"></script>
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>

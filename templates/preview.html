@@ -31,10 +31,10 @@
     {% block content %}
         <nav class="navbar navbar-light navbar-expand-xl fixed-top" id="mainNav">
         </nav>
-        {% for key, value in photos.items %}
+        
         <div class="site-cover gradient-shadow site-cover-sm same-height overlay single-page"
-          style="background-image: url('{{ value }}'); background-position: center" name="files[]">
-          {% endfor %} 
+          style="background-image: url('{{ main }}'); background-position: center" name="file">
+          
           <div class="container">
             <div class="row same-height justify-content-center">
               <div class="col-md-12 col-lg-10">
@@ -72,19 +72,15 @@
               <div class="col-md-12 col-lg-8 main-content">
       
                 <div class="post-content-body">
-                  <p>{{ content|safe }}</p>
-                  <!-- <div class="row mb-5 mt-5">
-                    <div class="col-md-12 mb-4">
-                      <img src="img/separate-blog/img_1.jpg" alt="Image placeholder" class="img-fluid rounded">
-                    </div>
-                    <div class="col-md-6 mb-4">
-                      <img src="img/separate-blog/img_2.jpg" alt="Image placeholder" class="img-fluid rounded">
-                    </div>
-                    <div class="col-md-6 mb-4">
-                      <img src="img/separate-blog/img_3.jpg" alt="Image placeholder" class="img-fluid rounded">
-                    </div>
-                  </div> -->
-                  
+                  <p>Short Description : {{ shortd|safe }}</p>
+                  <div class="row mb-5 mt-5">
+                    {% for key, value in photos.items %}
+                      <div class="col-md-12 mb-4">
+                        <img src="{{ value }}" alt="Image placeholder" class="img-fluid rounded">
+                      </div>
+                      {% endfor %} 
+                  </div> 
+                  <p>Description : {{ content|safe }}</p>
                 </div>
       
       
@@ -95,47 +91,14 @@
                 <a href="{% url 'selectcategory' %}" class="btn btn-primary signup-messagebox"
                 style="background-color: #eb3812;  border: none; border-radius: 20px;">&nbsp;&nbsp;&nbsp; Edit
                 &nbsp;&nbsp;&nbsp;</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="#" class="btn btn-primary signup-messagebox"
-                style="background-color: #eb3812;  border: none; border-radius: 20px;">Proceed</a>
+                <a href="{% url 'selectcategory' %}" class="btn btn-primary signup-messagebox"
+                style="background-color: #eb3812;  border: none; border-radius: 20px;">&nbsp;&nbsp;&nbsp; save as Draft
+                &nbsp;&nbsp;&nbsp;</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'postBlog' %}" class="btn btn-primary signup-messagebox"
+                style="background-color: #eb3812;  border: none; border-radius: 20px;">Post</a>
 
-               
+    {% endblock %}     
 
-
-
-
-
-
-   <!-- 
-    <div class="container" style="width: 100%; height: auto;">
-        <div class="col-lg-6 article" style="position: relative;left: 23%; background-color: #fff;">
-
-             <div class="image-wrap">
-            {% for key, value in photos.items %}
-                <img src="{{ value }}" alt="The beautiful painting" id="image" class="article-image" name="files[]"
-                    type="text">
-                {% endfor %}    
-            </div>
-            <div class="article-name">
-                <h2 class="post-name" id="title">{{ title }}</h2>
-            </div>
-            <div class="post-meta">
-                <span class="postdate" id="date"></span>
-                <span class="postauthor" id="category">{{ category }}</span>
-            </div>
-            <div class="post-description">
-                <p id="content">{{ content|safe }}</p>
-                <div style="margin-left: 121px; width: 100%;">
-                    <a href="{% url 'selectcategory' %}" class="btn btn-primary signup-messagebox"
-                        style="background-color: #eb3812;  border: none; border-radius: 20px;">&nbsp;&nbsp;&nbsp; Edit
-                        &nbsp;&nbsp;&nbsp;</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a href="#" class="btn btn-primary signup-messagebox"
-                        style="background-color: #eb3812;  border: none; border-radius: 20px;">Proceed</a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    {% endblock %} -->
 </body>
 
 </html>

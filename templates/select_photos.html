@@ -54,10 +54,11 @@
       {% csrf_token %}
       <input type="hidden" name="category" value="{{ category }}">
       <div class="file-upload">
-          <button class="btn btn-primary signup-messagebox" id="main_pic" name="main_pic" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Select a main photo </button>
+          <button class="btn btn-primary signup-messagebox" id="main_pic" name="main_pic" type="button" onclick="$('.file-main').trigger( 'click' )">Select a main photo </button>
           <button class="btn btn-primary signup-messagebox"  type="button" onclick="$('.file-upload-input').trigger( 'click' )">Select photos for blog </button>
           <br/><br/>
           <div class="image-upload-wrap">
+            <input class="file-main" type='file' id="file-main" name="main" accept="*" />
             <input class="file-upload-input" type='file' id="files" name="files[]" accept="*"
             multiple aria-label="Multiple Select Files" />
             <div class="drag-text">
@@ -95,7 +96,8 @@
 	var storedFiles = [];
 	
 	$(document).ready(function() {
-		$("#files").on("change", handleFileSelect);
+    $("#files").on("change", handleFileSelect);
+    $("#file-main").on("change", handleFileMain);
 		
 		selDiv = $("#file-upload-content"); 
 		$("#myForm").on("submit", handleForm);
@@ -127,7 +129,33 @@
 			reader.readAsDataURL(f); 
 		});
 		
-	}
+  }
+  
+  function handleFileMain(e) {
+
+var files = e.target.files;
+var filesArr = Array.prototype.slice.call(files);
+filesArr.forEach(function(f) {			
+
+  if(!f.type.match("image.*")) {
+    return;
+  }
+  storedFiles.push(f);
+  
+  var reader = new FileReader();
+  reader.onload = function (e) {
+    $('.image-upload-wrap').hide();
+
+    var html = "<div><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selFile file-upload-image' name='blog-image' title='Click to remove'>" + f.name + "<br clear=\"left\"/></div>";
+
+    selDiv.append(html);
+    $('.file-upload-content').show();        
+    
+  }
+  reader.readAsDataURL(f); 
+});
+
+}
 		
 	function handleForm(e) {
 		e.preventDefault();
