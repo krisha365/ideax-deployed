@@ -493,7 +493,7 @@ input[type=checkbox] {
   text-align: center;
 }
 
-.file-upload-input {
+.file-upload-input, #file-main {
   position: absolute;
   margin: 0;
   padding: 0;
@@ -503,6 +503,7 @@ input[type=checkbox] {
   opacity: 0;
   cursor: pointer;
 }
+
 
 .image-upload-wrap {
   margin-top: 20px;
