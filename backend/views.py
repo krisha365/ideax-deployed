@@ -15,6 +15,13 @@ def handle_uploaded_file(f):
     for chunk in f.chunks():
         destination.write(chunk)
     destination.close()
+
+def handle_main_file(f):
+    destination = open('media/%s' % f.name, 'wb+')
+
+    for chunk in f.chunks():
+        destination.write(chunk)
+    destination.close()
     
     
 
@@ -52,6 +59,10 @@ def writecontent(request):
         i = 0
         context1['category'] = cat
         mime = "/media/"
+        main = request.FILES.get("main")
+        handle_main_file(main)
+        main = mime + str(main)
+        context1['main'] = main
         for inImg in request.FILES.getlist("files[]"):
             handle_uploaded_file(inImg)
             inImg = mime + str(inImg)
@@ -66,9 +77,14 @@ def preview(request):
     print(context1)
     title = request.POST.get('title', None)
     content = request.POST.get('content', None)
+    short = request.POST.get('shortd', None)
     context1['title'] = title
     context1['content'] = content
+    context1['shortd'] = short
     return render(request, "preview.html", context1)
+
+def postBlog(request):
+    pass
 
 def createblog(request):
     if request.user.is_authenticated:
