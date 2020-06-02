@@ -18,11 +18,6 @@
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 
-  <style>
-    *{
-      margin: 5px;
-    }
-  </style>
    
 </head>
 
@@ -38,7 +33,7 @@
           <div class="container">
             <div class="row same-height justify-content-center">
               <div class="col-md-12 col-lg-10">
-      
+                <span class="post-category text-white bg-success mb-3">{{ category }}</span>
                   <h1 class="section-heading">{{ title }}</h1>
       
       
@@ -91,7 +86,7 @@
                 <a href="{% url 'selectcategory' %}" class="btn btn-primary signup-messagebox"
                 style="background-color: #eb3812;  border: none; border-radius: 20px;">&nbsp;&nbsp;&nbsp; Edit
                 &nbsp;&nbsp;&nbsp;</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="{% url 'selectcategory' %}" class="btn btn-primary signup-messagebox"
+                <a href="{% url 'saveDraft' %}" class="btn btn-primary signup-messagebox"
                 style="background-color: #eb3812;  border: none; border-radius: 20px;">&nbsp;&nbsp;&nbsp; save as Draft
                 &nbsp;&nbsp;&nbsp;</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="{% url 'postBlog' %}" class="btn btn-primary signup-messagebox"

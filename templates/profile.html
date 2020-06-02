@@ -110,7 +110,7 @@
                 <div class="nav-niche nav">
                     <ul style="padding: 0">
                         <li onclick="tabs(0)" class="user-post active">Posts</li>
-                        <li onclick="tabs(1)" class="user-review">Reviews</li>
+                        <li onclick="tabs(1)" class="user-review">Drafts</li>
                         <li onclick="tabs(2)" class="user-setting"> Settings</li>
                     </ul>
                 </div>
@@ -119,16 +119,31 @@
                 <div class="profile-body">
                     <div class="profile-posts tab" style="margin: 0; padding: 0; box-sizing:border-box">
                         <ul class="producers">
-                            {% for blog in five %}
+                        {% if user.is_authenticated %}
+
+                        
+                            {% for blog in blogs %}
+                            {% for blogi in blogimg %}
+
+                            {% if blogi.blogid == blogi.blogid %}
+                                {% with temp as blogi %}
+                                {% endwith %}
+                            {% endif %}
+                            {% endfor %}
+                            {% if user.id == blog.bloggerid %}
                             <li><a href="{% url 'separateblog' %}" title="Colorful Solutions"><img
-                                        src="{% static 'img/blog-image/1.jpg' %}" class="profile-blog-size"></a>
+                                        src="{{ temp.img }}" class="profile-blog-size"></a>
                                 <br />
-                                <p class="no-margin-font">Colorful Solutions</p><br />
+                                <p class="no-margin-font">{{ blog.title }}</p><br />
                                 <!-- <a class="btn btn-primary signup-messagebox" href="createblog.html">View</a>
                                 <a class="btn btn-primary signup-messagebox" href="createblog.html">Delete</a> -->
 
                             </li>
+            
+                            {% endif %}
                             {% endfor %}
+                        
+                        {% endif %}
 
                     </div>
                     <div class="profile-reviews tab">
