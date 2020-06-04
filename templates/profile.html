@@ -26,11 +26,19 @@
                 aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-align-justify"></i></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="nav navbar-nav ml-auto">
+
                     <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger"
-                            style="color: #eb3812;" href="{% url 'profile' %}">Hello, User</a></li>
+                            style="color: #eb3812;" href="{% url 'profile' %}">Hello, {{ user.username }}</a>
+
                     <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
                             href="{% url 'profile' %}"><img class="user-header-size"
-                                src="{% static 'img/separate-blog/person_2.jpg' %}"></a></li>
+                                src="{% static 'img/separate-blog/person_2.jpg' %}"></a>
+
+
+                    </li>
+                    <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger"
+                            style="color: #eb3812;" href="logout">Logout</a>
+
                 </ul>
             </div>
         </div>
@@ -42,14 +50,15 @@
             </div>
             <div class="profile-img">
                 <div class="profile-imge">
-                    
+
                     <img src="{% static 'img/separate-blog/person_2.jpg' %}" width="200" style="display: block;"
                         alt="Profile Image">
-                      <div class="edit">  <a href="#" class="iconic"><i style="color: #ddd;" class="fa fa-pencil"></i></a></div>
+                    <div class="edit"> <a href="#" class="iconic"><i style="color: #ddd;" class="fa fa-pencil"></i></a>
+                    </div>
                 </div>
             </div>
             <div class="profile-nav-info">
-                <h3 class="user-name">Bright Code</h3>
+                <h3 class="user-name">{{ user.username }}</h3>
                 <div class="address">
                     <p id="state" class="state">New York,</p>
                     <span id="country" class="country">USA.</span>
@@ -119,42 +128,56 @@
                 <div class="profile-body">
                     <div class="profile-posts tab" style="margin: 0; padding: 0; box-sizing:border-box">
                         <ul class="producers">
-                        {% if user.is_authenticated %}
-
-                        
+                            {% if user.is_authenticated %}
                             {% for blog in blogs %}
-                            {% for blogi in blogimg %}
-
-                            {% if blogi.blogid == blogi.blogid %}
-                                {% with temp as blogi %}
-                                {% endwith %}
-                            {% endif %}
-                            {% endfor %}
                             {% if user.id == blog.bloggerid %}
-                            <li><a href="{% url 'separateblog' %}" title="Colorful Solutions"><img
-                                        src="{{ temp.img }}" class="profile-blog-size"></a>
+                            {% for blogi in blogimg %}
+                            {% if blogi.blogid == blog.blogid %}
+                            {% if blogi.is_main == True %}
+                            {% if blog.is_draft == False %}
+                            <li><a href="{% url 'separateblog' %}" title="Colorful Solutions"><img src="{{ blogi.img }}"
+                                        class="profile-blog-size"></a>
                                 <br />
                                 <p class="no-margin-font">{{ blog.title }}</p><br />
                                 <!-- <a class="btn btn-primary signup-messagebox" href="createblog.html">View</a>
                                 <a class="btn btn-primary signup-messagebox" href="createblog.html">Delete</a> -->
-
                             </li>
-            
+                            {% endif %}
+                            {% endif %}
                             {% endif %}
                             {% endfor %}
-                        
-                        {% endif %}
+                            {% endif %}
+                            {% endfor %}
 
+                            {% endif %}
+                        </ul>
                     </div>
                     <div class="profile-reviews tab">
-                        <h1>User reviews</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam pariatur officia, aperiam
-                            quidem quasi, tenetur molestiae. Architecto mollitia laborum possimus iste esse. Perferendis
-                            tempora consectetur, quae qui nihil voluptas. Maiores debitis
-                            repellendus excepturi quisquam temporibus quam nobis voluptatem, reiciendis distinctio
-                            deserunt vitae! Maxime provident, distinctio animi commodi nemo, eveniet fugit porro quos
-                            nesciunt quidem a, corporis nisi dolorum minus sit eaque error
-                            sequi ullam. Quidem ut fugiat, praesentium velit aliquam!</p>
+                    <ul class="producers">
+                            {% if user.is_authenticated %}
+                            {% for blog in blogs %}
+                            {% if user.id == blog.bloggerid %}
+                            {% for blogi in blogimg %}
+                            {% if blogi.blogid == blog.blogid %}
+                            {% if blogi.is_main == True %}
+                            {% if blog.is_draft == True %}
+                            <li><a href="{% url 'separateblog' %}" title="Colorful Solutions"><img src="{{ blogi.img }}"
+                                        class="profile-blog-size"></a>
+                                <br />
+                                <p class="no-margin-font">{{ blog.title }}</p><br />
+                                <!-- <a class="btn btn-primary signup-messagebox" href="createblog.html">View</a>
+                                <a class="btn btn-primary signup-messagebox" href="createblog.html">Delete</a> -->
+                            </li>
+                            {% endif %}
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                            {% endfor %}
+
+                            {% endif %}
+                        </ul>
+                        
                     </div>
                     <div class="profile-settings tab">
                         <div class="account-setting">
