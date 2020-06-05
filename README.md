@@ -9,3 +9,5 @@ Create a folder named "media" before starting the project
 
 Database updated
 blog's data will be inserted into database after clicking onto "Save as draft" button in preview.html
+
+"Post" functionality implemented.
