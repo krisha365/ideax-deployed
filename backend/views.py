@@ -30,10 +30,8 @@ def index(request):
     return render(request, "index.html")
 
 def blogindex(request):
-    context = {
-    "five" : [1, 2, 3, 4, 5],
-    }
-    return render(request, "blog-index.html", context)
+    blogs = Blogs.objects.all()
+    return render(request, "blog-index.html", {'blogs': blogs})
 
 def separateblog(request):
     return render(request, "separate-blog.html")
@@ -85,8 +83,7 @@ def preview(request):
     print(short)
     return render(request, "preview.html", context1)
 
-def postBlog(request):
-    pass
+
 
 
 
@@ -142,19 +139,10 @@ def login(request):
         print('not good')
         return render(request, "login.html")
 
-
-
-
-
 def profile(request):
     blogs = Blogs.objects.all()
     blogimg = Blogs_images.objects.all()
-    context = {
-        "five" : [1, 2, 3,4, 5,6,7,8],
-    }
     return render(request, "profile.html", {'blogs': blogs, 'blogimg': blogimg})
-
-
 
 
 # Backend Logic
@@ -171,7 +159,7 @@ def saveDraft(request):
         if request.user.is_active:
             print("hello")
             temp = random.randint(1,10000000)
-            blog = Blogs(title = context1['title'], short_description = context1['shortd'], content=context1['content'], category=context1['category'], bloggerid=request.user.id, blogid= temp, is_draft=True)
+            blog = Blogs(title = context1['title'], short_description = context1['shortd'], content=context1['content'], category=context1['category'], bloggerid=request.user.id, blogid= temp, is_draft=True,main_img=context1['main'])
             blog.save()
             blogimg = Blogs_images(blogid = temp, img=context1['main'], is_main = True)
             blogimg.save()
@@ -180,4 +168,23 @@ def saveDraft(request):
                     blogimg = Blogs_images(blogid = temp, img = context1['photos'][i])
                     blogimg.save()
             return redirect('profile')
+        
+        
+def postBlog(request):
+    global context1
+    print(context1)
+    if request.user.is_authenticated:
+        if request.user.is_active:
+            print("hello")
+            temp = random.randint(1,10000000)
+            blog = Blogs(title = context1['title'], short_description = context1['shortd'], content=context1['content'], category=context1['category'], bloggerid=request.user.id, blogid= temp, is_draft=False,main_img=context1['main'])
+            blog.save()
+            blogimg = Blogs_images(blogid = temp, img=context1['main'], is_main = True)
+            blogimg.save()
+            if context1['photos']:
+                for i in context1['photos']:
+                    blogimg = Blogs_images(blogid = temp, img = context1['photos'][i])
+                    blogimg.save()
+    
+            return redirect('blogindex')
     
