@@ -18,6 +18,10 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
     <link rel="stylesheet" href="{% static 'css/styles.min.css' %}">
 
+    <style>
+        
+    </style>
+
 </head>
 
 <body id="page-top">
@@ -41,17 +45,17 @@
         <div class="content">
             <form action="/selectcategory/" method="POST" id="shortcon">
                 {% csrf_token %}
-                <div style="position: relative; top: 20px;">
+                <div style="position: relative; top: 50px;">
                     <div class="form-group">
                         <input type="text" class="form-control title-input" id="input-fileName" name="title" placeholder="Title" style="color: black;">
                     </div>
                 </div>
-                <hr class="hr-modified">
-                <div class="shortd" style="margin-left: 71px;">
-                    {% load wysiwyg %}
-                    {% wysiwyg_setup %}
-                        <textarea id="short" name="shortd">Write a short description of your blog</textarea>
-                    {% wysiwyg_editor "short" %}
+                <br/><br/>
+                <hr class="hr-modified" style="margin-top: 10px;">
+                <div class="shortd" style="margin-left: 20px; margin-top: 30px;">
+                    <div class="form-group">
+                        <textarea id="textarea" rows="6" placeholder="What's on your mind?"></textarea>
+                      </div>
                 </div>
                 <br/>
                 <div>
