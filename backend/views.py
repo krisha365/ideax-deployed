@@ -37,14 +37,26 @@ def separateblog(request):
     return render(request, "separate-blog.html")
 
 def selectcategory(request):
-    return render(request, "select_category.html")
-
+    if request.method == 'POST':
+        global context1
+        title = request.POST.get('title', None)
+        short = request.POST.get('shortd', None)
+        context1['title'] = title
+        context1['shortd'] = short
+        return render(request, "select_category.html", context1)
+    else:
+        return render(request, "select_category.html")
+    
 def selectphotos(request):
     if request.method == 'POST':
         global context1
         data = request.POST.getlist('category', None)
         print(data)
         cat = ", ".join(data)
+        title = request.POST.get('title', None)
+        short = request.POST.get('shortd', None)
+        context1['title'] = title
+        context1['shortd'] = short
         context1['category'] = cat
         return render(request, "select_photos.html", context1)
     else:
@@ -53,6 +65,10 @@ def selectphotos(request):
 def writecontent(request):
     if request.method == 'POST':
         global context1
+        title = request.POST.get('title', None)
+        short = request.POST.get('shortd', None)
+        context1['title'] = title
+        context1['shortd'] = short
         context1['photos'] = {}
         cat = request.POST.get('category', None)
         i = 0
