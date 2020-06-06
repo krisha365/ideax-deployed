@@ -14,6 +14,8 @@ blog's data will be inserted into database after clicking onto "Save as draft" b
 
 Custom CKeditor
 In config.js file of ckeditor add:
+
+
  CKEDITOR.editorConfig = function( config ) {
 	
   config.height = 300
