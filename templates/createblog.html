@@ -27,7 +27,7 @@
                 class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-align-justify"></i></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="nav navbar-nav ml-auto">
+                <ul class="nav navbar-nav ml-auto" id="pro">
                     <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger"
                             style="color: #eb3812;" href="{% url 'profile' %}">Hello, {{ user.username }}</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger" href="{% url 'profile' %}"><img
@@ -36,6 +36,30 @@
             </div>
         </div>
     </nav>
+
+    <div class="front">
+        <div class="content">
+            <form action="/selectcategory/" method="POST" id="shortcon">
+                {% csrf_token %}
+                <div style="position: relative; top: 20px;">
+                    <div class="form-group">
+                        <input type="text" class="form-control title-input" id="input-fileName" name="title" placeholder="Title" style="color: black;">
+                    </div>
+                </div>
+                <hr class="hr-modified">
+                <div class="shortd" style="margin-left: 71px;">
+                    {% load wysiwyg %}
+                    {% wysiwyg_setup %}
+                        <textarea id="short" name="shortd">Write a short description of your blog</textarea>
+                    {% wysiwyg_editor "short" %}
+                </div>
+                <br/>
+                <div>
+                    <input type="submit" class="btn btn-primary signup-messagebox" value="select category" name="sub">
+                </div>
+            </form>
+        </div>
+    </div>
 
     <div class="sidebar">
         <a class="active open-sans" href="{% url 'createblog' %}"><i class="fa fa-fw fa-home"></i> Welcome</a>
@@ -50,7 +74,7 @@
             click below to create one.
         </h5>
         <br/>
-        <a href="{% url 'selectcategory' %}" class="btn btn-primary signup-messagebox">Create a new blog</a>
+        <a href="#" class="btn btn-primary signup-messagebox create">Create a new blog</a>
     </div>
 
 
@@ -66,3 +90,14 @@
 </body>
 
 </html>
+
+<script>
+     $(document).ready(function(){
+        $(".front").hide();
+        $(".create").click(function(){
+           $(".front").show(); 
+           $("#pro").hide();
+        });
+
+    });
+</script>

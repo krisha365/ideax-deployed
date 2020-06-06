@@ -20,11 +20,14 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
     <link rel="stylesheet" href="{% static 'css/styles.min.css' %}">
     <link href="{% static 'css/editor.css' %}">
-
+    <style>
+        .text{
+            margin-left: 180px;
+        }
+    </style>
     
   </style>
-  {% load wysiwyg %}
-  {% wysiwyg_setup %}
+  
     
 </head>
 
@@ -57,24 +60,17 @@
             <form action="/preview/" method="POST" id="pre">
                 {% csrf_token %}
                 <input type="hidden" name="category" value="{{ category }}">
-                <!-- <input type="hidden" name="pic" value="{{ img }}"> -->
-                <div class="form-group">
-                <input type="text" class="form-control title-input" id="input-fileName" name="title" placeholder="Title" style="color: black;">
-                </div>
-                <hr class="hr-modified">
+                <input type="hidden" name="title" value="{{ title }}">
+                <input type="hidden" name="shortd" value="{{ shortd }}">
                 <div class="form-group">
                 
-                <!--<textarea id="textarea" name="content" rows="21" placeholder="What's on your mind?"></textarea> -->
+                    <div class="text">
+                        {% load wysiwyg %}
+                        {% wysiwyg_setup %}
+                            <textarea id="textarea" name="content">What's on your mind?</textarea>
+                        {% wysiwyg_editor "textarea" %}
+                    </div>
                
-                
-                  <textarea id="textarea" name="content" cols="50"></textarea>
-                
-                {% wysiwyg_editor "textarea" %}
-                
-
-                <hr class="hr-modified">
-                <textarea id="short" name="shortd" rows="9" placeholder="Write a short description of your blog"></textarea>
-                {% wysiwyg_editor "short" %}
                 </div>
                 <input type="submit" name="sub" class="btn btn-primary signup-messagebox" value="   Finish   ">
             </form>  

@@ -53,6 +53,8 @@
           <!--Rounded checkbox buttons-->
             <form action="/selectphotos/" method="POST" id="selectcat">
               {% csrf_token %}
+              <input type="hidden" name="title" value="{{ title }}">
+              <input type="hidden" name="shortd" value="{{ shortd }}">
             <div class="btn-group top" data-toggle="buttons" style="margin-top: 30px;">
                 <div>
                 <label class="btn btn-pink btn-rounded active btn-md form-check-label check">
