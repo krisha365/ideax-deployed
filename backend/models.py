@@ -18,7 +18,7 @@ class Blogs(models.Model):
     category = models.CharField(max_length = 20)
     blogid = models.IntegerField(primary_key=True, unique=True)
     is_draft = models.BooleanField(default = True)
-    main_img = models.ImageField()
+    main_img = models.ImageField(upload_to="profile-pics")
 
 class Blogs_images(models.Model):
     blogid = models.IntegerField()

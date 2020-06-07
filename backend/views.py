@@ -30,11 +30,19 @@ def index(request):
     return render(request, "index.html")
 
 def blogindex(request):
-    blogs = Blogs.objects.all()
+    blogs = Blogs.objects.filter(is_draft=False)
     return render(request, "blog-index.html", {'blogs': blogs})
 
 def separateblog(request):
-    return render(request, "separate-blog.html")
+    if request.method == 'POST':
+        titl = request.POST.get('title', None)
+        print(titl)
+        blogs = Blogs.objects.filter(title=titl)
+        for blog in blogs:
+            temp = blog.blogid
+        print(temp)
+        blogimg = Blogs_images.objects.filter(blogid=temp, is_main=False)
+        return render(request, "separate-blog.html", {'blogs': blogs,'blogimg': blogimg})
 
 def selectcategory(request):
     if request.method == 'POST':
@@ -157,7 +165,7 @@ def login(request):
 
 def profile(request):
     blogs = Blogs.objects.all()
-    blogimg = Blogs_images.objects.all()
+    blogimg = Blogs_images.objects.filter(is_main=True)
     return render(request, "profile.html", {'blogs': blogs, 'blogimg': blogimg})
 
 
