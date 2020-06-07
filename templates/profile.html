@@ -158,7 +158,7 @@
                             {% if user.id == blog.bloggerid %}
                             {% for blogi in blogimg %}
                             {% if blogi.blogid == blog.blogid %}
-                            {% if blogi.is_main == True %}
+
                             {% if blog.is_draft == True %}
                             <li><a href="{% url 'separateblog' %}" title="Colorful Solutions"><img src="{{ blogi.img }}"
                                         class="profile-blog-size"></a>
@@ -168,7 +168,7 @@
                                 <a class="btn btn-primary signup-messagebox" href="createblog.html">Delete</a> -->
                             </li>
                             {% endif %}
-                            {% endif %}
+
                             {% endif %}
                             {% endfor %}
                             {% endif %}
