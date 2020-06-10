@@ -46,11 +46,12 @@
 
 
                     </li>
-                    <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger" style="color: #eb3812;" href="logout">Logout</a>
+                    <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger" style="color: #eb3812;" href="{% url 'logout' %}">Logout</a>
 
                 </ul>
             </div>
-
+            {% endif %}
+            {% endfor %}
             {% else %}
 
             <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -65,8 +66,7 @@
                 </ul>
             </div>
 
-            {% endif %}
-            {% endfor %}
+
             {% endif %}
         </div>
     </nav>
