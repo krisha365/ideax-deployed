@@ -22,47 +22,51 @@
 
 <body>
 
-   <nav class="navbar navbar-light navbar-expand-xl fixed-top" id="mainNav">
-        <div class="container-fluid"><a class="navbar-brand js-scroll-trigger" style="color: #eb3812;"
-                href="{% url 'index' %}">ideaX</a><button data-toggle="collapse" data-target="#navbarResponsive"
-                class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive"
-                aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-align-justify"></i></button>
-            {% if user.is_authenticated %}
+  <nav class="navbar navbar-light navbar-expand-xl fixed-top" id="mainNav">
+    <div class="container-fluid"><a class="navbar-brand js-scroll-trigger" style="color: #eb3812;"
+            href="{% url 'index' %}">ideaX</a><button data-toggle="collapse" data-target="#navbarResponsive"
+            class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive"
+            aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-align-justify"></i></button>
+        {% if user.is_authenticated %}
+        {% for blogi in blogimg %}
+        {% if  user.id == blogi.bloggerid %}
 
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="nav navbar-nav ml-auto">
-                   
-                    <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger"
-                            style="color: #eb3812;" href="{% url 'profile' %}">Hello, {{ user.username }}</a>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="nav navbar-nav ml-auto">
+               
+                <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger"
+                        style="color: #eb3812;" href="{% url 'profile' %}">Hello, {{ user.username }}</a>
 
-                    <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
-                            href="{% url 'profile' %}"><img class="user-header-size"
-                                src="{% static 'img/separate-blog/person_2.jpg' %}"></a>
+                <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
+                        href="{% url 'profile' %}"><img class="user-header-size"
+                            src="{{ blogi.img }}"></a>
 
 
-                    </li>
-                    <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger" style="color: #eb3812;" href="logout">Logout</a>
-
-                </ul>
-            </div>
-
-            {% else %}
-
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
-                            href="{% url 'signup' %}">sign
-                            in</a>
-                    </li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
-                        href="{% url 'login' %}">Login</a>
                 </li>
-                </ul>
-            </div>
+                <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger" style="color: #eb3812;" href="logout">Logout</a>
 
-            {% endif %}
+            </ul>
         </div>
-    </nav>
+
+        {% else %}
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
+                        href="{% url 'signup' %}">sign
+                        in</a>
+                </li>
+                <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
+                    href="{% url 'login' %}">Login</a>
+            </li>
+            </ul>
+        </div>
+
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+    </div>
+</nav>
 
   <div class="gradient-shadow" style="height: 410px;" data-height="310">
 
@@ -86,10 +90,10 @@
       {% csrf_token %}
       <div class="col-xse-12 col-mde-4 modules">
         <div class="image_container">
-        <a href="{% url 'separateblog'%}"><img class="image_container" src="{{ blog.main_img }}"></a>
+       <img class="image_container" src="{{ blog.main_img }}">
         </div>
         <div class="modules_content">
-          <a style="color: #282828; text-decoration:none"  href="{% url 'separateblog' %}"><h3 id="titl" name="titl" class="blog-heading-align">{{ blog.title }}</h3></a>
+         <h3 id="titl" name="titl" class="blog-heading-align">{{ blog.title }}</h3>
           <input type="hidden" name="title" value="{{ blog.title }}">
           <p>{{ blog.short_description | safe }}</p>
         </div>

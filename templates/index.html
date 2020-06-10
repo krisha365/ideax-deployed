@@ -23,6 +23,8 @@
                 class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-align-justify"></i></button>
             {% if user.is_authenticated %}
+            {% for blogi in blogimg %}
+            {% if  user.id == blogi.bloggerid %}
 
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="nav navbar-nav ml-auto">
@@ -32,7 +34,7 @@
 
                     <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
                             href="{% url 'profile' %}"><img class="user-header-size"
-                                src="{% static 'img/separate-blog/person_2.jpg' %}"></a>
+                                src="{{ blogi.img }}"></a>
 
 
                     </li>
@@ -55,6 +57,8 @@
                 </ul>
             </div>
 
+            {% endif %}
+            {% endfor %}
             {% endif %}
         </div>
     </nav>

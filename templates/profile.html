@@ -18,45 +18,98 @@
 
 </head>
 
-<body id="page-top" class="profile-main">
+<body id="page-top">
+
     <nav class="navbar navbar-light navbar-expand-xl fixed-top" id="mainNav">
         <div class="container-fluid"><a class="navbar-brand js-scroll-trigger" style="color: #eb3812;"
                 href="{% url 'index' %}">ideaX</a><button data-toggle="collapse" data-target="#navbarResponsive"
                 class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-align-justify"></i></button>
+            {% if user.is_authenticated %}
+            {% for blogi in blogimg %}
+            {% if  user.id == blogi.bloggerid %}
+
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="nav navbar-nav ml-auto">
-
+                   
                     <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger"
                             style="color: #eb3812;" href="{% url 'profile' %}">Hello, {{ user.username }}</a>
 
                     <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
                             href="{% url 'profile' %}"><img class="user-header-size"
-                                src="{% static 'img/separate-blog/person_2.jpg' %}"></a>
+                                src="{{ blogi.img }}"></a>
 
 
                     </li>
-                    <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger"
-                            style="color: #eb3812;" href="logout">Logout</a>
+                    <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger" style="color: #eb3812;" href="logout">Logout</a>
 
                 </ul>
             </div>
+
+            {% else %}
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
+                            href="{% url 'signup' %}">sign
+                            in</a>
+                    </li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
+                        href="{% url 'login' %}">Login</a>
+                </li>
+                </ul>
+            </div>
+
+            {% endif %}
+            {% endfor %}
+            {% endif %}
         </div>
     </nav>
+    {% for blogi in blogimg %}
+    {% if  user.id == blogi.bloggerid %}
+    <div class="front">
+        <div class="content">
+            <form action="{% url 'profile' %}" method="POST" id="shortcon" enctype="multipart/form-data">
 
+
+                {% csrf_token %}
+                <div class="file-upload">
+                    <button class="btn btn-primary signup-messagebox" id="main_pic" name="main_pic" type="button" onclick="$('.file-main').trigger( 'click' )">Select your profile pic </button>
+                    <input class="file-main" type='file' id="file-main" name="maine" onchange="readURL(this);" />
+                    <br/><br/>
+                    <div class="this-one">
+                    <img class="change-img this-img" src="{{ blogi.img }}" width="200" 
+                        alt="Profile Image">
+                    </div>
+                    <div class="file-upload-content" id="file-upload-content">
+                    </div>
+                </div>
+                <br/><br/>
+                 <div>
+                    <input type="submit" class="btn btn-primary signup-messagebox" value="  Change profilc pic  ">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="profile-main">
     <div class="container">
         <div class="profile-header">
             <div class="avatar-edit">
             </div>
+
             <div class="profile-img">
                 <div class="profile-imge">
 
-                    <img src="{% static 'img/separate-blog/person_2.jpg' %}" width="200" style="display: block;"
+
+                    <img src="{{ blogi.img }}" width="200" style="display: block;"
                         alt="Profile Image">
-                    <div class="edit"> <a href="#" class="iconic"><i style="color: #ddd;" class="fa fa-pencil"></i></a>
+
+                    <div class="edit"> <a href="#" class="iconic create"><i style="color: #ddd;" class="fa fa-pencil"></i></a>
                     </div>
                 </div>
             </div>
+ 
             <div class="profile-nav-info">
                 <h3 class="user-name">{{ user.username }}</h3>
                 <div class="address">
@@ -72,6 +125,8 @@
                 </div>
             </div>
         </div>
+
+        
 
         <div class="main-bd" style="box-sizing: border-box;">
             <div class="left-side">
@@ -131,11 +186,8 @@
                             {% if user.is_authenticated %}
                             {% for blog in blogs %}
                             {% if user.id == blog.bloggerid %}
-                            {% for blogi in blogimg %}
-                            {% if blogi.blogid == blog.blogid %}
-                            {% if blogi.is_main == True %}
                             {% if blog.is_draft == False %}
-                            <li><a href="{% url 'separateblog' %}" title="Colorful Solutions"><img src="{{ blogi.img }}"
+                            <li><a href="{% url 'separateblog' %}" title="Colorful Solutions"><img src="{{ blog.main_img }}"
                                         class="profile-blog-size"></a>
                                 <br />
                                 <p class="no-margin-font">{{ blog.title }}</p><br />
@@ -143,24 +195,20 @@
                                 <a class="btn btn-primary signup-messagebox" href="createblog.html">Delete</a> -->
                             </li>
                             {% endif %}
-                            {% endif %}
-                            {% endif %}
-                            {% endfor %}
                             {% endif %}
                             {% endfor %}
                             {% endif %}
                         </ul>
                     </div>
-                    <div class="profile-reviews tab">
-                    <ul class="producers">
+                    <div class="profile-reviews tab" style="margin: 0; padding: 0; box-sizing:border-box">
+                        <ul class="producers">
                             {% if user.is_authenticated %}
                             {% for blog in blogs %}
                             {% if user.id == blog.bloggerid %}
-                            {% for blogi in blogimg %}
-                            {% if blogi.blogid == blog.blogid %}
+
 
                             {% if blog.is_draft == True %}
-                            <li><a href="{% url 'separateblog' %}" title="Colorful Solutions"><img src="{{ blogi.img }}"
+                            <li><a href="{% url 'separateblog' %}" title="Colorful Solutions"><img src="{{ blog.main_img }}"
                                         class="profile-blog-size"></a>
                                 <br />
                                 <p class="no-margin-font">{{ blog.title }}</p><br />
@@ -168,15 +216,11 @@
                                 <a class="btn btn-primary signup-messagebox" href="createblog.html">Delete</a> -->
                             </li>
                             {% endif %}
-
                             {% endif %}
                             {% endfor %}
-                            {% endif %}
-                            {% endfor %}
-
                             {% endif %}
                         </ul>
-                        
+
                     </div>
                     <div class="profile-settings tab">
                         <div class="account-setting">
@@ -194,6 +238,9 @@
             </div>
         </div>
     </div>
+</div>
+{% endif%}
+{% endfor%}
 
     <!-- script -->
     <script src="{% static 'js/jquery.min.js' %}"></script>
@@ -204,6 +251,33 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
     <script src="{% static 'js/script.min.js' %}"></script>
     <script src="{% static 'js/animation.min.js' %}"></script>
+
+    <script>
+        $(document).ready(function(){
+           $(".front").hide();
+           $(".create").click(function(){
+              $(".front").show(); 
+              $("#pro").hide();
+           });
+   
+       });
+   </script>
+
+
+   <script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.this-img')
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+  </script>
 
 </body>
 
