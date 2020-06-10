@@ -24,3 +24,8 @@ class Blogs_images(models.Model):
     blogid = models.IntegerField()
     img = models.ImageField()
     is_main = models.BooleanField(default=False)
+    
+class User_profile(models.Model):
+    bloggerid = models.IntegerField()
+    img = models.ImageField(upload_to="profile-pics")
+    username = models.CharField(max_length=50)

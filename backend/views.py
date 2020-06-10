@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
-from .models import Blogs, Blogs_images
+from .models import Blogs, Blogs_images, User_profile
 from django.contrib.auth.models import auth, User
 from base64 import b64encode
 import random
@@ -27,11 +27,15 @@ def handle_main_file(f):
     
 
 def index(request):
-    return render(request, "index.html")
+    blogimg = User_profile.objects.all()
+    
+    return render(request, "index.html", {'blogimg':blogimg})
 
 def blogindex(request):
     blogs = Blogs.objects.filter(is_draft=False)
-    return render(request, "blog-index.html", {'blogs': blogs})
+    blogimg = User_profile.objects.all()
+    blogimge = Blogs_images.objects.filter(is_main=True)
+    return render(request, "blog-index.html", {'blogs': blogs, 'blogimg': blogimg, 'blogimge': blogimge})
 
 def separateblog(request):
     if request.method == 'POST':
@@ -41,22 +45,29 @@ def separateblog(request):
         for blog in blogs:
             temp = blog.blogid
         print(temp)
+        name = request.user.username
+        id = request.user.id
         blogimg = Blogs_images.objects.filter(blogid=temp, is_main=False)
-        return render(request, "separate-blog.html", {'blogs': blogs,'blogimg': blogimg})
+        blogimge = User_profile.objects.filter(bloggerid=id, username=name)
+        return render(request, "separate-blog.html", {'blogs': blogs,'blogimg': blogimg, 'blogimge':blogimge})
 
 def selectcategory(request):
     if request.method == 'POST':
+        blogimg = User_profile.objects.all()
         global context1
         title = request.POST.get('title', None)
         short = request.POST.get('shortd', None)
+        print(short)
         context1['title'] = title
         context1['shortd'] = short
+        context1['blogimg'] = blogimg.values()
         return render(request, "select_category.html", context1)
     else:
-        return render(request, "select_category.html")
+        return render(request, "select_category.html", {'blogimg':blogimg})
     
 def selectphotos(request):
     if request.method == 'POST':
+        blogimg = User_profile.objects.all()
         global context1
         data = request.POST.getlist('category', None)
         print(data)
@@ -66,18 +77,21 @@ def selectphotos(request):
         context1['title'] = title
         context1['shortd'] = short
         context1['category'] = cat
+        context1['blogimg'] = blogimg.values()
         return render(request, "select_photos.html", context1)
     else:
-        return render(request, "select_photos.html")
+        return render(request, "select_photos.html",  {'blogimg': blogimg})
 
 def writecontent(request):
     if request.method == 'POST':
+        blogimg = User_profile.objects.all()
         global context1
         title = request.POST.get('title', None)
         short = request.POST.get('shortd', None)
         context1['title'] = title
         context1['shortd'] = short
         context1['photos'] = {}
+        context1['blogimg'] = blogimg.values()
         cat = request.POST.get('category', None)
         i = 0
         context1['category'] = cat
@@ -93,10 +107,11 @@ def writecontent(request):
             i = i + 1
         return render(request, "write_content.html", context1)
     else:
-        return render(request, "write_content.html")
+        return render(request, "write_content.html",  {'blogimg': blogimg})
 
 def preview(request):
     global context1
+    blogimg = User_profile.objects.all()
     print(context1)
     title = request.POST.get('title', None)
     content = request.POST.get('content', None)
@@ -104,6 +119,7 @@ def preview(request):
     context1['title'] = title
     context1['content'] = content
     context1['shortd'] = short
+    context1['blogimg'] = blogimg.values()
     print(short)
     return render(request, "preview.html", context1)
 
@@ -113,9 +129,10 @@ def preview(request):
 
 def createblog(request):
     if request.user.is_authenticated:
-        return render(request, "createblog.html")
+        blogimg = User_profile.objects.all()
+        return render(request, "createblog.html", {'blogimg': blogimg})
     else:
-        return redirect('login')
+        return redirect('login', {'blogimg': blogimg})
 
 def signup(request):
     if request.method == 'POST':
@@ -165,8 +182,36 @@ def login(request):
 
 def profile(request):
     blogs = Blogs.objects.all()
-    blogimg = Blogs_images.objects.filter(is_main=True)
-    return render(request, "profile.html", {'blogs': blogs, 'blogimg': blogimg})
+    blogimg = User_profile.objects.all()
+    blogimge = Blogs_images.objects.filter(is_main=True)
+    if request.method == 'POST':
+        print(1)
+        if request.user.is_authenticated:
+            print(2)
+            if request.user.is_active:
+                print(3)
+                user = request.user.id
+                username = request.user.username
+                print(user)
+                mime = "/media/"
+                main = request.FILES.get("maine")
+                print(main)
+                handle_main_file(main)
+                main = mime + str(main)
+                if User_profile.objects.filter(bloggerid=user).exists():
+                    print('yes')
+                    User_profile.objects.filter(bloggerid=user).update(img=main)
+                    return redirect('/')
+                else:
+                    blogimg = User_profile(bloggerid = user, img=main, username=username)
+                    blogimg.save()
+                    return redirect('/')
+                    
+    else:
+        return render(request, "profile.html", {'blogs': blogs, 'blogimg': blogimg, 'blogimge':blogimge})
+    
+
+
 
 
 # Backend Logic
