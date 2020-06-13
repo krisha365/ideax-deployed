@@ -19,12 +19,21 @@
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
     <link rel="stylesheet" href="{% static 'css/styles.min.css' %}">
-    <link href="{% static 'css/editor.css' %}">
-    <style>
-        .text{
-            margin-left: 180px;
-        }
-    </style>
+    <link href="{% static 'css/assets/alloy-editor-atlas-min.css' %}" rel="stylesheet">
+	<style>
+		#main {
+			left: 200px;
+			position: relative;
+            top: 100px;
+            width: 700px;
+		}
+	</style>
+
+	<script>
+		window.ALLOYEDITOR_BASEPATH = '{% static "js/alloyeditor/" %}';
+        window.CKEDITOR_BASEPATH = '{% static "js/alloyeditor/" %}';
+        
+	</script>
     
   </style>
   
@@ -37,44 +46,14 @@
                 href="{% url 'index' %}">ideaX</a><button data-toggle="collapse" data-target="#navbarResponsive"
                 class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-align-justify"></i></button>
-            {% if user.is_authenticated %}
-            {% for blogi in blogimg %}
-            {% if  user.id == blogi.bloggerid %}
-
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="nav navbar-nav ml-auto">
-                   
                     <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger"
-                            style="color: #eb3812;" href="{% url 'profile' %}">Hello, {{ user.username }}</a>
-
-                    <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
-                            href="{% url 'profile' %}"><img class="user-header-size"
-                                src="{{ blogi.img }}"></a>
-
-
-                    </li>
-                    <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger" style="color: #eb3812;" href="{% url 'logout' %}">Logout</a>
-
+                            style="color: #eb3812;" href="{% url 'profile' %}">Hello, {{ user.username }}</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger" href="{% url 'profile' %}"><img
+                                class="user-header-size" src="{% static 'img/separate-blog/person_2.jpg' %}"></a></li>
                 </ul>
             </div>
-            {% endif %}
-            {% endfor %}
-            {% else %}
-
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
-                            href="{% url 'signup' %}">sign
-                            in</a>
-                    </li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
-                        href="{% url 'login' %}">Login</a>
-                </li>
-                </ul>
-            </div>
-
-
-            {% endif %}
         </div>
     </nav>
 
@@ -94,15 +73,15 @@
                 <input type="hidden" name="shortd" value="{{ shortd }}">
                 <div class="form-group">
                     
-                    <div class="text">
-                        {% load wysiwyg %}
-                        {% wysiwyg_setup %}
-                            <textarea id="textarea" name="content">What's on your mind?</textarea>
-                        {% wysiwyg_editor "textarea" %}
+                    <div id="main">   
                     </div>
+                    <script type="text/javascript" src="{% static 'js/vendor.bundle.js' %}"></script>
+	                <script type="text/javascript" src="{% static 'js/bundle.js' %}"></script>
                
                 </div>
-                <input type="submit" name="sub" class="btn btn-primary signup-messagebox" value="   Finish   ">
+                <div style="margin-top: 300px;">
+                    <input type="submit" name="sub" class="btn btn-primary signup-messagebox" value="   Finish   ">
+                </div>
             </form>  
 
         </div>
@@ -111,9 +90,7 @@
 
 
     <!-- script -->
-    <script src="{% static 'myapp/js/tinymce/tinymce.min.js' %}"></script>
-  <script type="text/javascript" src="{% static 'myapp/js/tinymce/custom.js' %}" ></script>
-    <script src="{% static 'js/editor.js' %}"></script>
+    <script src="{% static 'js/alloy-editor/alloy-editor-all-min.js' %}"></script>
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
