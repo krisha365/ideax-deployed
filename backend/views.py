@@ -112,7 +112,6 @@ def writecontent(request):
 def preview(request):
     global context1
     blogimg = User_profile.objects.all()
-    print(context1)
     title = request.POST.get('title', None)
     content = request.POST.get('content', None)
     short = request.POST.get('shortd', None)
@@ -120,7 +119,6 @@ def preview(request):
     context1['content'] = content
     context1['shortd'] = short
     context1['blogimg'] = blogimg.values()
-    print(short)
     return render(request, "preview.html", context1)
 
 
