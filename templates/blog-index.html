@@ -86,8 +86,7 @@
     <div class="container-thigdu">
 
     {% for blog in blogs %}
-      <form action="{% url 'separateblog' %}" method="POST" name="names" >
-      {% csrf_token %}
+      <form action="{% url 'separateblog' %}" method="GET" name="names" >
       <div class="col-xse-12 col-mde-4 modules">
         <div class="image_container">
        <img class="image_container" src="{{ blog.main_img }}">
