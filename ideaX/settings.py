@@ -74,6 +74,8 @@ DJANGO_WYSIWYG_FLAVOR = "ckeditor"
 
 WSGI_APPLICATION = 'ideaX.wsgi.application'
 
+TIME_ZONE =  'Asia/Kolkata'
+
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
