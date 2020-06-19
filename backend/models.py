@@ -22,7 +22,7 @@ class Blogs(models.Model):
    
 class User_profile(models.Model):
     bloggerid = models.IntegerField()
-    img = models.ImageField(upload_to="profile-pics")
+    img = models.ImageField(upload_to="profile-pics", default="/media/icons8-user-100.png")
     username = models.CharField(max_length=50)
 
 class Comment(models.Model):

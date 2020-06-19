@@ -9,6 +9,7 @@ import random
 # Create your views here.
 
 context1 = {}
+titl = ""
 
 def handle_uploaded_file(f):
     destination = open('media/%s' % f.name, 'wb+')
@@ -28,7 +29,6 @@ def handle_main_file(f):
 
 def index(request):
     blogimg = User_profile.objects.all()
-    
     return render(request, "index.html", {'blogimg':blogimg})
 
 def blogindex(request):
@@ -38,18 +38,7 @@ def blogindex(request):
 
 
 def separateblog(request):
-    if request.method == 'GET':
-        titl = request.GET.get('title', None)
-        blogs = Blogs.objects.filter(title=titl)
-        temp = 0
-        tempe = 0
-        for blog in blogs:
-            temp = blog.blogid
-            tempe = blog.bloggerid
-        name = request.user.username
-        comm = Comment.objects.filter(bloggerid=temp)
-        blogimg = User_profile.objects.filter(bloggerid=tempe)
-        return render(request, "separate-blog.html", {'blogs': blogs, 'blogimg':blogimg, 'comment':comm})
+    global titl
     if request.method == 'POST':
         if request.user.is_authenticated:
             name = request.POST.get('username')
@@ -60,7 +49,7 @@ def separateblog(request):
             img = request.POST.get('image')
             coom = Comment(blogid=blogid, name=name, email=email, bloggerid=bloggerid, message=message, main_img=img)
             coom.save()
-            return redirect('/')
+            return redirect('separateblog')
         else:
             name = request.POST.get('username')
             email = request.POST.get('email')
@@ -70,7 +59,20 @@ def separateblog(request):
             img = request.POST.get('image')
             coom = Comment(blogid=blogid, name=name, email=email, bloggerid=bloggerid, message=message, main_img=img)
             coom.save()
-            return redirect('/')
+            return redirect('separateblog')
+    else:
+        if titl == "":
+            titl = request.GET.get('title', None)
+        blogs = Blogs.objects.filter(title=titl)
+        temp = 0
+        tempe = 0
+        for blog in blogs:
+            temp = blog.blogid
+            tempe = blog.bloggerid
+        name = request.user.username
+        comm = Comment.objects.filter(bloggerid=temp)
+        blogimg = User_profile.objects.filter(bloggerid=tempe)
+        return render(request, "separate-blog.html", {'blogs': blogs, 'blogimg':blogimg, 'comment':comm})
         
 def selectcategory(request):
     blogimg = User_profile.objects.all()
@@ -141,6 +143,13 @@ def preview(request):
 def createblog(request):
     blogimg = User_profile.objects.all()
     if request.user.is_authenticated:
+        id = request.user.id
+        name = request.user.username
+        if User_profile.objects.filter(bloggerid=id).exists():
+            pass
+        else:
+            pro = User_profile(bloggerid=id, username=name)
+            pro.save()
         return render(request, "createblog.html", {'blogimg': blogimg})
     else:
         return redirect('login')
@@ -179,6 +188,7 @@ def login(request):
     if request.method == 'POST':
         user_name = request.POST['user_name']
         user_password = request.POST['user_password_1']
+
         user = auth.authenticate(username=user_name, password=user_password)
         if user is not None:
             auth.login(request, user)
