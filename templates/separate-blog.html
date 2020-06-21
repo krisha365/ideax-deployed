@@ -117,7 +117,9 @@
 
           <div class="post-content-body">
             <p>Short Description: {{ blog.short_description | safe }}</p>
-            <p>Description : {{ blog.content|safe }}</p>
+        
+            <p>Description : {{ blogim | safe }}</p>
+        
           </div>
 
 
@@ -150,7 +152,7 @@
               <h3 class="mb-5">Leave a comment</h3>
 
               {% if user.is_authenticated %}
-              {% for blogi in blogimg %}
+              {% for blogi in blogimg|slice:":1" %}
               <form action="{% url 'separateblog' %}" method="POST" class="p-5 bg-light">
                 {% csrf_token %}
                 <div class="form-group">
@@ -167,7 +169,6 @@
                   <input type="submit" value="Post Comment" class="btn btn-primary signup-messagebox"
                     style="border-radius: 300px;">
                 </div>
-
               </form>
               {% endfor %}
               {% else %}
