@@ -6,18 +6,27 @@ from django.contrib.auth.models import auth, User
 from base64 import b64encode
 import random
 from django.contrib.sites import requests
+from datetime import datetime
 
 # Create your views here.
 
 context1 = {}
 tempt = ""
 
-def handle_uploaded_file(f):
-    destination = open('media/%s' % f.name, 'wb+')
-
-    for chunk in f.chunks():
-        destination.write(chunk)
+def handle_uploaded_file(f, t):
+    i = datetime.now()
+    now = str(i.year) + '-' + str(i.month) + '-' + str(i.day) + '-' + str(i.day) + '-' + str(i.hour) + '-' + str(i.minute) + '-' + str(i.second)
+    filenaam = 'media/' + str(t) + str(now) + '.txt'
+    destination = open(filenaam, 'w+')
+    destination.write(f)
     destination.close()
+    return(filenaam)
+
+def fileReaders(naam):
+    destination = open(naam, 'r')
+    conte = destination.read()
+    destination.close()
+    return(conte)
 
 def handle_main_file(f):
     destination = open('media/%s' % f.name, 'wb+')
@@ -69,6 +78,8 @@ def separateblog(request):
         if tempt != request.GET.get('title'):
             tempt = request.GET.get('title')
         blogs = Blogs.objects.filter(title=tempt)
+        filen = Blogs.objects.get(title=tempt)
+        conte = fileReaders(str(filen.content))
         temp = 0
         tempe = 0
         for blog in blogs:
@@ -77,7 +88,7 @@ def separateblog(request):
         name = request.user.username
         comm = Comment.objects.filter(bloggerid=temp)
         blogimg = User_profile.objects.all()
-        return render(request, "separate-blog.html", {'blogs': blogs, 'blogimg':blogimg, 'comment':comm})
+        return render(request, "separate-blog.html", {'blogs': blogs, 'blogimg':blogimg, 'comment':comm, 'blogim':conte})
             
         
 def selectcategory(request):
@@ -137,7 +148,9 @@ def preview(request):
     content = request.POST.get('content', None)
     short = request.POST.get('shortd', None)
     context1['title'] = title
-    context1['content'] = content
+    filenaa = handle_uploaded_file(content, title)
+    context1['content'] = filenaa
+    context1['contente'] = content 
     context1['shortd'] = short
     context1['blogimg'] = blogimg.values()
     return render(request, "preview.html", context1)

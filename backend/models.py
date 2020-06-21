@@ -14,7 +14,7 @@ class Blogs(models.Model):
     title = models.CharField(max_length=150)
     bloggerid = models.IntegerField()
     short_description = models.CharField(max_length = 500)
-    content = models.TextField()
+    content = models.FileField()
     category = models.CharField(max_length = 20)
     blogid = models.IntegerField(primary_key=True, unique=True)
     is_draft = models.BooleanField(default = True)
