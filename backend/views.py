@@ -1,15 +1,16 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
 from .models import Blogs, User_profile, Comment
 from django.contrib.auth.models import auth, User
 from base64 import b64encode
 import random
+from django.contrib.sites import requests
 
 # Create your views here.
 
 context1 = {}
-titl = ""
+tempt = ""
 
 def handle_uploaded_file(f):
     destination = open('media/%s' % f.name, 'wb+')
@@ -38,12 +39,14 @@ def blogindex(request):
 
 
 def separateblog(request):
-    global titl
+    global tempt
     if request.method == 'POST':
         if request.user.is_authenticated:
             name = request.POST.get('username')
             email = request.POST.get('email')
             blogid = request.POST.get('id')
+            title = request.POST.get('title')
+            tempt = title
             bloggerid = request.POST.get('bloggerid')
             message = request.POST.get('message')
             img = request.POST.get('image')
@@ -54,16 +57,18 @@ def separateblog(request):
             name = request.POST.get('username')
             email = request.POST.get('email')
             blogid = request.POST.get('id')
+            title = request.POST.get('title')
+            tempt = title
             bloggerid = request.POST.get('bloggerid')
             message = request.POST.get('message')
             img = request.POST.get('image')
             coom = Comment(blogid=blogid, name=name, email=email, bloggerid=bloggerid, message=message, main_img=img)
             coom.save()
             return redirect('separateblog')
-    else:
-        if titl == "":
-            titl = request.GET.get('title', None)
-        blogs = Blogs.objects.filter(title=titl)
+    if request.method == 'GET': 
+        if tempt != request.GET.get('title'):
+            tempt = request.GET.get('title')
+        blogs = Blogs.objects.filter(title=tempt)
         temp = 0
         tempe = 0
         for blog in blogs:
@@ -71,8 +76,9 @@ def separateblog(request):
             tempe = blog.bloggerid
         name = request.user.username
         comm = Comment.objects.filter(bloggerid=temp)
-        blogimg = User_profile.objects.filter(bloggerid=tempe)
+        blogimg = User_profile.objects.all()
         return render(request, "separate-blog.html", {'blogs': blogs, 'blogimg':blogimg, 'comment':comm})
+            
         
 def selectcategory(request):
     blogimg = User_profile.objects.all()
@@ -126,7 +132,7 @@ def writecontent(request):
 
 def preview(request):
     global context1
-    blogimg = User_profile.objects.all()
+    blogimg = User_profile.objects.filter(bloggerid=request.user.id)
     title = request.POST.get('title', None)
     content = request.POST.get('content', None)
     short = request.POST.get('shortd', None)
