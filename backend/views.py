@@ -7,6 +7,8 @@ from base64 import b64encode
 import random
 from django.contrib.sites import requests
 from datetime import datetime
+from django.contrib.sites.shortcuts import get_current_site
+
 
 # Create your views here.
 
@@ -49,6 +51,27 @@ def blogindex(request):
 
 def separateblog(request):
     global tempt
+    if request.method == 'POST': 
+        tempt = request.POST.get('title')
+        print(tempt)
+    else:
+        print(tempt)
+    blogs = Blogs.objects.filter(title=tempt)
+    filen = Blogs.objects.get(title=tempt)
+    conte = fileReaders(str(filen.content))
+    temp = 0
+    tempe = 0
+    for blog in blogs:
+        temp = blog.blogid
+        tempe = blog.bloggerid
+    name = request.user.username
+    comm = Comment.objects.filter(bloggerid=temp)
+    blogimg = User_profile.objects.all()
+    return render(request, "separate-blog.html", {'blogs': blogs, 'blogimg':blogimg, 'comment':comm, 'blogim':conte})
+        
+    
+def comment(request):
+    global tempt
     if request.method == 'POST':
         if request.user.is_authenticated:
             name = request.POST.get('username')
@@ -59,6 +82,7 @@ def separateblog(request):
             bloggerid = request.POST.get('bloggerid')
             message = request.POST.get('message')
             img = request.POST.get('image')
+            print(img)
             coom = Comment(blogid=blogid, name=name, email=email, bloggerid=bloggerid, message=message, main_img=img)
             coom.save()
             return redirect('separateblog')
@@ -74,21 +98,6 @@ def separateblog(request):
             coom = Comment(blogid=blogid, name=name, email=email, bloggerid=bloggerid, message=message, main_img=img)
             coom.save()
             return redirect('separateblog')
-    if request.method == 'GET': 
-        if tempt != request.GET.get('title'):
-            tempt = request.GET.get('title')
-        blogs = Blogs.objects.filter(title=tempt)
-        filen = Blogs.objects.get(title=tempt)
-        conte = fileReaders(str(filen.content))
-        temp = 0
-        tempe = 0
-        for blog in blogs:
-            temp = blog.blogid
-            tempe = blog.bloggerid
-        name = request.user.username
-        comm = Comment.objects.filter(bloggerid=temp)
-        blogimg = User_profile.objects.all()
-        return render(request, "separate-blog.html", {'blogs': blogs, 'blogimg':blogimg, 'comment':comm, 'blogim':conte})
             
         
 def selectcategory(request):
