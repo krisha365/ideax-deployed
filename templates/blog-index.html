@@ -86,7 +86,8 @@
     <div class="container-thigdu">
 
     {% for blog in blogs %}
-      <form action="{% url 'separateblog' %}" method="GET" name="names" >
+      <form action="{% url 'separateblog' %}" method="POST" name="names" >
+        {% csrf_token %}
       <div class="col-xse-12 col-mde-4 modules">
         <div class="image_container">
        <img class="image_container" src="{{ blog.main_img }}">
@@ -94,6 +95,7 @@
         <div class="modules_content">
          <h3 id="titl" name="titl" class="blog-heading-align">{{ blog.title }}</h3>
           <input type="hidden" name="title" value="{{ blog.title }}">
+          
           <p>{{ blog.short_description | safe }}</p>
         </div>
         <div class="pull-right">
