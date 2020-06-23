@@ -105,6 +105,16 @@
   position: fixed;
 }
 
+.fronte {
+  background: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  margin: 0;
+  background-size: cover;
+  position: fixed;
+}
+
 .select {
   background-color: white;
   height: 50%;
@@ -153,7 +163,7 @@ button {
 
 .content {
   background-color: white;
-  height: 80%;
+  height: 75%;
   width: 60%;
   border-radius: 20px;
   box-shadow: 12px 8px 9px rgba(0, 0, 0, 0.4);
@@ -648,6 +658,15 @@ input[type=checkbox] {
   margin: 10px auto;
 }
 
+.bree {
+  font-family: "Bree Serif", sans-serif;
+}
+
+.clicker {
+    color: #282828;
+    text-decoration: none;
+}
+
 @media (max-width: 1100px) {
   .profile-side {
     width: 250px;
@@ -1034,4 +1053,10 @@ ul a {
   -ms-transition: all 150ms linear;
   -o-transition: all 150ms linear;
   transition: all 150ms linear;
+}
+
+
+.change-img {
+  height: 230px;
+  width: 230px;
 }
