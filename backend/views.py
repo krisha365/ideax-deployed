@@ -238,17 +238,26 @@ def profile(request):
                 user = request.user.id
                 username = request.user.username
                 mime = "/media/"
-                main = request.FILES.get("maine")
-                handle_main_file(main)
-                main = mime + str(main)
-                if User_profile.objects.filter(bloggerid=user).exists():
-                    User_profile.objects.filter(bloggerid=user).update(img=main)
-                    return redirect('/')
-                else:
-                    blogimg = User_profile(bloggerid = user, img=main, username=username)
-                    blogimg.save()
-                    return redirect('/')
-                    
+                main = request.FILES.get("maine", None)
+                name = request.POST.get("usernaam", None)
+                email = request.POST.get('useremail', None)
+                if main != None:
+                    handle_main_file(main)
+                    main = mime + str(main)
+                    if User_profile.objects.filter(bloggerid=user).exists():
+                        User_profile.objects.filter(bloggerid=user).update(img=main)
+                        return redirect('profile')
+                    else:
+                        blogimg = User_profile(bloggerid = user, img=main, username=username)
+                        blogimg.save()
+                        return redirect('/')
+                elif name != None:
+                    User.objects.filter(id=user).update(username=name)
+                    return redirect('profile')
+                elif email != None:
+                    User.objects.filter(id=user).update(email=email)
+                    return redirect('profile')
+                
     else:
         return render(request, "profile.html", {'blogs': blogs, 'blogimg': blogimg})
     
