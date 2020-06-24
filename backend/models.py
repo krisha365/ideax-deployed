@@ -19,6 +19,7 @@ class Blogs(models.Model):
     blogid = models.IntegerField(primary_key=True, unique=True)
     is_draft = models.BooleanField(default = True)
     main_img = models.ImageField(upload_to="profile-pics", default="/media/icons8-user-100.png")
+    created_on = models.DateTimeField(auto_now_add=True)
    
 class User_profile(models.Model):
     bloggerid = models.IntegerField()
