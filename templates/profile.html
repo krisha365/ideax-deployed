@@ -117,8 +117,13 @@
 
                 <br /><br />
                 {% csrf_token %}
-                    <div>Your current Location: {{ user.username }}</div><br />
-                    <input type='text' name="usernaam" class="form-control" style="margin: auto; width:30%; border-radius:15px" />
+                    <div>Your current Location: {{ blogi.location }}</div><br />
+                   <!-- <input type='text' name="usernaam" class="form-control" style="margin: auto; width:30%; border-radius:15px" /> -->
+                   <div style='text-align:center;'>
+                        <script type= "text/javascript" src = "{% static 'js/countries.js' %}"></script>
+                        Select Country:   <select id="country" name ="country" style="border-radius: 20px;height: 40px;"></select> </br></br>
+                        Select State: <select name ="state" id ="state" style="border-radius: 20px; height: 40px;"></select>  </br> </br>
+                    </div>
                     <br /><br />
                 <div>
                     <input type="submit" class="btn btn-primary signup-messagebox"  value="  Change Location  ">
@@ -133,8 +138,8 @@
 
                 <br /><br />
                 {% csrf_token %}
-                    <div>Your current Bio: {{ user.username }}</div><br />
-                    <input type='text' name="usernaam" class="form-control" style="margin: auto; width:30%; border-radius:15px" />
+                    <div>Your current Bio: {{ blogi.bio }}</div><br />
+                    <input type='text' name="bio" class="form-control" style="margin: auto; width:30%; border-radius:15px" />
                     <br /><br />
                 <div>
                     <input type="submit" class="btn btn-primary signup-messagebox"  value="  Change Bio  ">
@@ -182,8 +187,8 @@
                 <div class="profile-nav-info">
                     <h3 class="user-name">{{ user.username }}</h3>
                     <div class="address">
-                        <p id="state" class="state">New York,</p>
-                        <span id="country" class="country">USA.</span>
+                        
+                        <span id="country" class="country">{{ blogi.location }}.</span>
                     </div>
 
                 </div>
@@ -205,10 +210,7 @@
                         <div class="user-bio">
                             <h3>Bio</h3>
                             <p class="bio">
-                                Lorem ipsum dolor sit amet, hello how consectetur adipisicing elit. Sint consectetur
-                                provident magni yohoho consequuntur, voluptatibus ghdfff exercitationem at quis
-                                similique.
-                                Optio, amet!
+                                {{ blogi.bio }}
                             </p>
                         </div>
                         <br />
@@ -411,6 +413,10 @@
             }
         }
     </script>
+
+<script language="javascript">
+	populateCountries("country", "state"); // first parameter is id of country drop-down and second parameter is id of state drop-down
+</script>
 
 </body>
 
