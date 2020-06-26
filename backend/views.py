@@ -241,6 +241,11 @@ def profile(request):
                 main = request.FILES.get("maine", None)
                 name = request.POST.get("usernaam", None)
                 email = request.POST.get('useremail', None)
+                country = request.POST.get('country', None)
+                state = request.POST.get('state', None)
+                
+                bio = request.POST.get('bio', None)
+                print(bio)
                 if main != None:
                     handle_main_file(main)
                     main = mime + str(main)
@@ -256,6 +261,13 @@ def profile(request):
                     return redirect('profile')
                 elif email != None:
                     User.objects.filter(id=user).update(email=email)
+                    return redirect('profile')
+                elif bio != None:
+                    User_profile.objects.filter(id=user).update(bio=bio)
+                    return redirect('profile')
+                elif country != None and state != None:
+                    location = state+", "+country
+                    User_profile.objects.filter(id=user).update(location=location)
                     return redirect('profile')
                 
     else:
