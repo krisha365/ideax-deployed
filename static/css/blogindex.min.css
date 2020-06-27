@@ -351,7 +351,7 @@
 }
 
 .bajigu79 nav ul a:hover,.kv-main a {
-    text-decoration: underline!important
+    text-decoration: none;
 }
 
 .kv-item a,.kv-item button,.kv-item p,.kv-item span,.kv-site .section-subtitle,.kv-site a,.kv-site blockquote,.kv-site button,.kv-site input,.kv-site label,.kv-site p,.kv-site select,.kv-site span,.kv-site textarea {
@@ -7736,7 +7736,7 @@ select {
 }
 
 .comment.user-comment {
-    color:  #dadada;
+    color:  #fff;
 }
 
 
@@ -7748,13 +7748,14 @@ select {
 
 .comment.user-comment .info {
     text-align: right;
+    text-decoration: none;
 }
 
 
 .comment .info a {	/* User name */
     display: block;
     text-decoration: none;
-    color: #656c71;
+    color: #fff;
     font-weight: bold;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -7803,7 +7804,8 @@ select {
 }
 
 .comment.user-comment p {
-    background-color:  #0992aa;
+    background-color:  #f25b3b;
+    border-radius: 5px;
 }
 
 
@@ -7839,8 +7841,7 @@ select {
     border: 1px solid #cecece;
     background-color:  #fefefe;
     box-shadow: 1px 2px 1px 0 rgba(0, 0, 0, 0.06);
-    overflow: auto;
-
+    
     width:100%;
     min-height: 80px;
     padding: 15px 20px;
@@ -7853,9 +7854,9 @@ select {
 
 .write-new button {
     float:right;
-    background-color:  #729bbb;
+    background-color: #eb3812;;
     box-shadow: 1px 2px 1px 0 rgba(0, 0, 0, 0.12);
-    border-radius: 2px;
+    border-radius: 24px;
     border: 0;
     color: #ffffff;
     font-weight: bold;
