@@ -6245,6 +6245,15 @@ select {
     justify-content: center
 }
 
+.border-radius {
+    border-radius: 2px;
+}
+
+.nucime25 .section-content {
+    margin-top: -6rem;
+    margin-bottom: -6rem;
+}
+
 .lahuni83 .container.content.align-left .row {
     justify-content: flex-start;
     text-align: left
@@ -6260,8 +6269,67 @@ select {
     text-align: right
 }
 
+.nucime25 .content {
+    position: relative;
+    min-height: 12rem;
+    padding: 1.5rem 1rem 1rem
+}
+
+
+
+.background-id_0.nucime25 .section-head {
+    background: #282828;
+    background-size: cover;
+}
+
+@media (min-width: 1200px) {
+    .nucime25 .section-head {
+        padding-bottom: 9rem
+    }
+    .rivisu76 .align-left .col-lg-6 {
+        padding-left: 1rem;
+        padding-right: 4rem
+    }
+    .rivisu76 .align-left .col-lg-4 {
+        padding-right: 3rem
+    }
+    .rivisu76 .align-center .col-lg-6 {
+        padding-left: 3rem;
+        padding-right: 3rem
+    }
+    .rivisu76 .align-center .col-lg-4 {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem
+    }
+    .rivisu76 .align-right .col-lg-6 {
+        padding-left: 4rem;
+        padding-right: 1rem
+    }
+    .rivisu76 .align-right .col-lg-4 {
+        padding-left: 3rem
+    }
+}
+
+@media (min-width: 768px) {
+    .nucime25 .section-head {
+        padding-bottom: 6.5rem
+    }
+}
+
+
+.background-id_0.nucime25 .section-description, .background-id_0.nucime25 .section-head, .background-id_0.nucime25 .section-subtitle, .background-id_0.nucime25 .section-title, .background-id_1m16.lahuni83 .custom-header-buttons>.lahuni83 .logo, .background-id_1m16.lahuni83 .custom-header-buttons>.lahuni83 .sub .logo .logo-text, .background-id_1m16.lahuni83 .has-cover .navigation-position.kv-check-scroll.kv-scrolled .logo h1, .background-id_1m16.lahuni83 .sub .navigation nav ul li a, .background-id_1m16.lahuni83 .sub .navigation nav ul li a.active, .background-id_1m16.lahuni83 .sub .navigation-position, .background-id_1m16.lahuni83 .sub .navigation-position.kv-scrolled, .background-id_1m16.lahuni83 .sub .navigation-position.kv-scrolled .mobile.navigation nav ul li a, .background-id_1m16.lahuni83 .sub .navigation-position.kv-scrolled .navigation nav ul li a, .background-id_1m16.lahuni83 .sub .navigation-position.kv-scrolled .navigation nav ul li a.active {
+    color: rgba(255, 255, 255, 1);
+    text-shadow: none
+}
+
+
 .lahuni83 .section-description {
     max-width: 570px
+}
+
+.nucime25 .align-center {
+    text-align: center;
+    margin: 0 auto;
 }
 
 .lahuni83 .align-center .section-description,.lahuni83 .align-center .section-subtitle {
@@ -6733,6 +6801,53 @@ select {
 
 .tixoru73 .align-right .positioning .row {
     justify-content: flex-end
+}
+
+
+@media (min-width: 1200px) {
+    .nucime25 .section-head {
+        padding-bottom: 9rem
+    }
+    .rivisu76 .align-left .col-lg-6 {
+        padding-left: 1rem;
+        padding-right: 4rem
+    }
+    .rivisu76 .align-left .col-lg-4 {
+        padding-right: 3rem
+    }
+    .rivisu76 .align-center .col-lg-6 {
+        padding-left: 3rem;
+        padding-right: 3rem
+    }
+    .rivisu76 .align-center .col-lg-4 {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem
+    }
+    .rivisu76 .align-right .col-lg-6 {
+        padding-left: 4rem;
+        padding-right: 1rem
+    }
+    .rivisu76 .align-right .col-lg-4 {
+        padding-left: 3rem
+    }
+}
+
+
+@media (min-width: 992px) {
+    .nucime25 .content {
+        padding: 3rem 2.5rem 1rem
+    }
+    .rivisu76 .col-lg-12.item {
+        margin-top: 1rem;
+        margin-bottom: 1rem
+    }
+    .qukefe53 .section-text {
+        max-width: 75%
+    }
+    .qukefe53 .align-center .section-text {
+        margin-left: auto;
+        margin-right: auto
+    }
 }
 
 .tixoru73 .align-right .description,.tixoru73 .align-right .section-text {
@@ -7584,4 +7699,227 @@ select {
 .background-id_1.bajigu79 .social-icons .social-link:hover svg {
     text-shadow: none;
     fill: rgba(255,255,255,1)
+}
+
+
+.nucime25 .section-head {
+    position: relative;
+    padding-bottom: 11rem
+}
+
+
+
+
+/* commment */
+
+* {
+    box-sizing: border-box;
+}
+
+
+
+
+
+.comment-section {
+    list-style: none;
+    max-width: 800px;
+    width: 100%;
+    margin: 50px auto;
+    padding: 10px;
+}
+
+.comment {
+    display: flex;
+    border-radius: 3px;
+    margin-bottom: 45px;
+    flex-wrap: wrap;
+}
+
+.comment.user-comment {
+    color:  #dadada;
+}
+
+
+/* User and time info */
+
+.comment .info {
+    width: 17%;
+}
+
+.comment.user-comment .info {
+    text-align: right;
+}
+
+
+.comment .info a {	/* User name */
+    display: block;
+    text-decoration: none;
+    color: #656c71;
+    font-weight: bold;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 10px 0 3px 0;
+}
+
+.comment .info span {	/* Time */
+    font-size: 11px;
+    color:  #9ca7af;
+}
+
+
+/* The user avatar */
+
+.comment .avatar {
+    width: 8%;
+}
+
+.comment.user-comment .avatar {
+    padding: 10px 18px 0 3px;
+}
+
+
+.comment .avatar img {
+    display: block;
+    border-radius: 50%;
+}
+
+.comment.user-comment .avatar img {
+    float: right;
+}
+
+
+
+
+
+/* The comment text */
+
+.comment p {
+    line-height: 1.5;
+    padding: 18px 22px;
+    width: 50%;
+    position: relative;
+    word-wrap: break-word;
+}
+
+.comment.user-comment p {
+    background-color:  #0992aa;
+}
+
+
+/* Signifies author has responded to post */
+
+.author-comment p:after {
+    content: '';
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: 2px solid #e2f8ff;
+    right: -8px;
+    top: 18px;
+}
+
+
+
+
+/* Comment form */
+
+.write-new {
+    margin: 80px auto 0;
+    width: 50%;
+}
+
+.write-new textarea {
+    color:  #444;
+    font: inherit;
+    outline: 0;
+    border-radius: 3px;
+    border: 1px solid #cecece;
+    background-color:  #fefefe;
+    box-shadow: 1px 2px 1px 0 rgba(0, 0, 0, 0.06);
+    overflow: auto;
+
+    width:100%;
+    min-height: 80px;
+    padding: 15px 20px;
+}
+
+.write-new img {
+    border-radius: 50%;
+    margin-top: 15px;
+}
+
+.write-new button {
+    float:right;
+    background-color:  #729bbb;
+    box-shadow: 1px 2px 1px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 2px;
+    border: 0;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+
+    padding: 10px 25px;
+    margin-top: 18px;
+}
+
+
+
+/* Responsive styles */
+
+@media (max-width: 800px) {
+    /* Make the paragraph in the comments take up the whole width,
+    forcing the avatar and user info to wrap to the next line*/
+    .comment p{
+        width: 100%;
+    }
+
+    /* Reverse the order of elements in the user comments,
+    so that the avatar and info appear after the text. */
+    .comment.user-comment .info {
+        order: 3;
+        text-align: left;
+    }
+
+    .comment.user-comment .avatar {
+        order: 2;
+    }
+
+    .comment.user-comment p {
+        order: 1;
+    }
+
+
+    /* Align toward the beginning of the container
+    all the elements inside the author comments. */
+    .comment-section {
+        margin-top: 10px;
+    }
+
+    .comment .info {
+        width: auto;
+    }
+
+    .comment .info a {
+        padding-top: 15px;
+    }
+
+    .comment.user-comment .avatar{
+        padding: 15px 10px 0 18px;
+        width: auto;
+    }
+
+    .comment.user-comment p:after {
+        width: 12px;
+        height: 12px;
+        top: initial;
+        left: 28px;
+        bottom: -6px;
+    }
+
+    .write-new {
+        width: 100%;
+    }
 }
