@@ -126,7 +126,7 @@
             </div>
 
           </div>
-          <div class="section-head section--lg" style="z-index: -1;">
+          <div class="section-head section--lg" style="z-index: -1;position: static;">
 
             <section class="comment-section">
               <h3 class="mb-5 align-center">{{ comment.count }} Comments</h3>
@@ -134,7 +134,7 @@
 
               <div class="comment user-comment">
 
-                <div class="info">
+                <div class="info" style="text-decoration: none;">
                   <a href="#">{{ comm.name }}</a>
                   <span>{{ comm.created_on| date:"d F Y" }}</span>
                 </div>
@@ -153,6 +153,7 @@
                 <form action="{% url 'comment' %}" method="post">
                   {% csrf_token %}
                   <textarea placeholder="Write your comment here" name="message" id="message"></textarea>
+                  
                   <input type="hidden" name="username" value="{{ user.username }}">
                   <input type="hidden" name="email" value="{{ user.email }}">
                   <input type="hidden" name="id" value="{{ user.id }}">
