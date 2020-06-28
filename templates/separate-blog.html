@@ -15,12 +15,16 @@
   <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="{% static 'css/blogindex.min.css' %}">
-  <link href="//fonts.googleapis.com/css?display=swap&amp;family=Neuton:400|Work+Sans:400" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&family=Work+Sans&display=swap" rel="stylesheet">
 </head>
 
 <style>
   section {
     padding: 0 0;
+  }
+  p {
+    font-size: 24px;
+    line-height: 36px;
   }
 </style>
 
@@ -116,7 +120,7 @@
                   <div class="row">
                     <div class="col-12 item">
                       <div>
-                        <h3 class="title title--md">{{ blog.short_description | safe }}</h3>
+                        <h1 class="title--lg">{{ blog.short_description | safe }}</h1>
                         <p class="description">{{ blogim | safe }}</p>
                       </div>
                     </div>
@@ -166,7 +170,7 @@
                   <div>{% if  user.id == blogi.bloggerid %}
                     <input type="hidden" name="image" value="{{ blogi.img }}">
 
-                    <img src="{{ blogi.img }}" width="35" alt="Profile of Bradley Jones" title="{{ blogi.username }}" />
+                    <img src="{{ blogi.img }}" width="35px" alt="Profile of Bradley Jones" title="{{ blogi.username }}" />
                     {% endif %}
                     {% endfor %}
                     <button type="submit">Submit</button>

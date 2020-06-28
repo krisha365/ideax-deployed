@@ -21,6 +21,7 @@
   section {
     padding: 4.5rem 0;
   }
+
 </style>
 
 <body style="padding-bottom: 68px;">
@@ -136,7 +137,7 @@
                           <h3 class="title--sm" data-type="text" tabindex="0">
                             {{ blog.title }}
                           </h3>
-                          <input type="hidden" name="title" value="{{ blog.title }}">
+                          <input type="hidden" name="title" value="{{ blog.blogid }}">
                           <p class="item-subtitle body--sm" style="opacity: 50%; font-size:smaller">
                             {{ blog.created_on| date:"d F Y" }}
                           </p>

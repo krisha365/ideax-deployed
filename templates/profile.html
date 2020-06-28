@@ -139,7 +139,7 @@
                 <br /><br />
                 {% csrf_token %}
                     <div>Your current Bio: {{ blogi.bio }}</div><br />
-                    <input type='text' name="bio" class="form-control" style="margin: auto; width:30%; border-radius:15px" />
+                    <input type='text' name="bio" maxlength="100" class="form-control" style="margin: auto; width:30%; border-radius:15px" />
                     <br /><br />
                 <div>
                     <input type="submit" class="btn btn-primary signup-messagebox"  value="  Change Bio  ">
@@ -192,12 +192,12 @@
                     </div>
 
                 </div>
-                <div class="profile-option">
+                <!-- <div class="profile-option">
                     <div class="notification">
                         <i class="fa fa-bell"></i>
                         <span class="alert-message" style="box-sizing: border-box;">3</span>
                     </div>
-                </div>
+                </div> -->
             </div>
 
 
@@ -209,7 +209,7 @@
                         <p class="user-mail"><i class="fa fa-envelope"></i> {{user.email}}</p>
                         <div class="user-bio">
                             <h3>Bio</h3>
-                            <p class="bio">
+                            <p>
                                 {{ blogi.bio }}
                             </p>
                         </div>
@@ -256,8 +256,9 @@
                         <div class="profile-posts tab" style="margin: 0; padding: 0; box-sizing:border-box">
                             <ul class="producers">
                                 {% if user.is_authenticated %}
+                                {% if blogs.count != 0 %}
                                 {% for blog in blogs %}
-                                {% if user.id == blog.bloggerid %}
+
                                 {% if blog.is_draft == False %}
                                 <form action="{% url 'separateblog' %}" method="POST">
                                     {% csrf_token %}
@@ -269,36 +270,39 @@
                                 <a class="btn btn-primary signup-messagebox" href="createblog.html">Delete</a> -->
                                     </li>
                                 </form>
-                                {% else %}
-                                <br />
+                                <br />                                {% else %}
                                 <h1>No Post</h1>
                                 {% endif %}
-                                {% endif %}
                                 {% endfor %}
+                                {% else %}
+                                <h1>No Post</h1>
+                                {% endif %}
                                 {% endif %}
                             </ul>
                         </div>
                         <div class="profile-reviews tab" style="margin: 0; padding: 0; box-sizing:border-box">
                             <ul class="producers">
                                 {% if user.is_authenticated %}
+                                {% if blogs.count != 0 %}
                                 {% for blog in blogs %}
-                                {% if user.id == blog.bloggerid %}
-
-
                                 {% if blog.is_draft == True %}
-                                <li><a href="{% url 'separateblog' %}" title="Colorful Solutions"><img
-                                            src="{{ blog.main_img }}" class="profile-blog-size"></a>
-                                    <br />
+                                <form action="{% url 'separateblog' %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="title" value="{{ blog.title }}">
+                                    <li><input class="profile-blog-size" type="image" src="{{ blog.main_img }}">
+                                        <br />
                                     <p class="no-margin-font">{{ blog.title }}</p><br />
                                     <!-- <a class="btn btn-primary signup-messagebox" href="createblog.html">View</a>
                                 <a class="btn btn-primary signup-messagebox" href="createblog.html">Delete</a> -->
                                 </li>
+                                <br />                                
                                 {% else %}
-                                <br />
-                                <h1>No Draft</h1>
-                                {% endif %}
+                                <h1>No Drafts</h1>
                                 {% endif %}
                                 {% endfor %}
+                                {% else %}
+                                <h1>No Drafts</h1>
+                                {% endif %}
                                 {% endif %}
                             </ul>
 
