@@ -360,7 +360,7 @@
 }
 
 .kv-item h1 a,.kv-item h1:not(.section-subtitle),.kv-item h2 a,.kv-item h2:not(.section-subtitle),.kv-item h3 a,.kv-item h3:not(.section-subtitle),.kv-item h4 a,.kv-item h4:not(.section-subtitle),.kv-item h5 a,.kv-item h5:not(.section-subtitle),.kv-item h6 a,.kv-item h6:not(.section-subtitle),.kv-site h1 a,.kv-site h1:not(.section-subtitle),.kv-site h2 a,.kv-site h2:not(.section-subtitle),.kv-site h3 a,.kv-site h3:not(.section-subtitle),.kv-site h4 a,.kv-site h4:not(.section-subtitle),.kv-site h5 a,.kv-site h5:not(.section-subtitle),.kv-site h6 a,.kv-site h6:not(.section-subtitle) {
-    font-family: Neuton!important;
+    font-family: 'Raleway'!important;
     font-weight: 400
 }
 
@@ -7829,7 +7829,7 @@ select {
 /* Comment form */
 
 .write-new {
-    margin: 80px auto 0;
+    margin: 55px auto 0;
     width: 50%;
 }
 
@@ -7850,6 +7850,8 @@ select {
 .write-new img {
     border-radius: 50%;
     margin-top: 15px;
+    width: 50px;
+    height: 50px;
 }
 
 .write-new button {
