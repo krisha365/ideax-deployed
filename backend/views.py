@@ -56,8 +56,8 @@ def separateblog(request):
         print(tempt)
     else:
         print(tempt)
-    blogs = Blogs.objects.filter(title=tempt)
-    filen = Blogs.objects.get(title=tempt)
+    blogs = Blogs.objects.filter(blogid=tempt)
+    filen = Blogs.objects.get(blogid=tempt)
     conte = fileReaders(str(filen.content))
     temp = 0
     tempe = 0
@@ -230,12 +230,13 @@ def login(request):
         return render(request, "login.html")
 
 def profile(request):
-    blogs = Blogs.objects.all()
+    user = request.user.id
+    blogs = Blogs.objects.all().filter(bloggerid=user)
     blogimg = User_profile.objects.all()
     if request.method == 'POST':
         if request.user.is_authenticated:
             if request.user.is_active:
-                user = request.user.id
+
                 username = request.user.username
                 mime = "/media/"
                 main = request.FILES.get("maine", None)
