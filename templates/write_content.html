@@ -23,8 +23,10 @@
         .tox-notifications-container {
             display: none !important;
         }
-    </style>
-
+        .tox-tinymce {
+            border: 0px !important;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23) !important;
+         }
     </style>
 
 
@@ -95,8 +97,8 @@
 
                 <div class="text" style="width: 75%; margin:auto">
 
-                    <textarea id="mytextarea" name="content" placeholder="What's on your mind?"
-                        style="font-family:'Work Sans'; border: #eb3812;"></textarea>
+                    <textarea id="mytextarea" name="content" placeholder="Share your experience here."
+                        style="font-family:'Work Sans'!important;"></textarea>
                 </div>
 
             </div>
@@ -120,20 +122,21 @@
         referrerpolicy="origin"></script>
     <script>
         tinymce.init({
-
-            selector: '#mytextarea',
+            height: "480",
+            selector: '#mytextarea',  
             branding: false,
             menubar: false,
+            statusbar: false,
             style_formats: [
             {title: 'Normal', block: 'p'},
             {title: 'code', format: 'code'},
             {title: 'blockquote', format: 'blockquote'}
         ],
             toolbar: [
-                "undo | redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist | link image "
+                "undo | redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | image "
             ],
-            plugins: 'image code',
-            content_style: "@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&family=Work+Sans&display=swap'); p { font-family: 'Work Sans'!important; line-height: 36px; font-size: 24px; font-weight: 400; } ",
+            plugins: 'image code advlist lists',
+            content_style: "@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&family=Work+Sans&display=swap'); p { font-family: 'Work Sans'!important; line-height: 15px; font-size: 24px; font-weight: 400; } body { font-family: 'Work Sans'!important;}",
             file_picker_types: 'image',
             file_picker_callback: function (cb, value, meta) {
                 var input = document.createElement('input');
