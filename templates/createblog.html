@@ -19,7 +19,12 @@
     <link rel="stylesheet" href="{% static 'css/styles.min.css' %}">
 
     <style>
-        
+        #the-count, #the-count1 {
+            float: right;
+            margin-right: 200px;
+            font-size: 12px;
+            color: gray;
+        }
     </style>
 
 </head>
@@ -77,15 +82,23 @@
                 {% csrf_token %}
                 <div style="position: relative; top: 50px;">
                     <div class="form-group">
-                        <input type="text" class="form-control title-input" id="input-fileName" name="title" placeholder="Title" style="color: black;">
+                        <input type="text" class="form-control title-input" id="input-fileName" name="title" placeholder="Title" style="color: black;" maxlength="50">
+                        <div id="the-count">
+                            <span id="current">0</span>
+                            <span id="maximum">/ 50</span>
+                        </div>
                     </div>
                 </div>
                 <br/><br/>
                 <hr class="hr-modified" style="margin-top: 10px;">
                 <div class="shortd" style="margin-left: 20px; margin-top: 30px;">
                     <div class="form-group">
-                        <textarea id="textarea" name="shortd" rows="6" placeholder="What's on your mind?"></textarea>
-                      </div>
+                        <textarea id="textarea" name="shortd" rows="6" placeholder="What's on your mind?" maxlength="200"></textarea>
+                        <div id="the-count1">
+                            <span id="current1">0</span>
+                            <span id="maximum1">/200</span>
+                        </div>
+                    </div>
                 </div>
                 <br/>
                 <div>
@@ -132,4 +145,77 @@
         });
 
     });
+
+    $('textarea').keyup(function() {
+    
+        var characterCount = $(this).val().length,
+            current = $('#current1'),
+            maximum = $('#maximum1'),
+            theCount = $('#the-count1');
+        
+        current.text(characterCount);
+    
+        
+        /*This isn't entirely necessary, just playin around*/
+        if (characterCount < 70) {
+        current.css('color', '#666');
+        }
+        if (characterCount > 70 && characterCount < 90) {
+        current.css('color', '#6d5555');
+        }
+        if (characterCount > 90 && characterCount < 100) {
+        current.css('color', '#793535');
+        }
+        if (characterCount > 100 && characterCount < 120) {
+        current.css('color', '#841c1c');
+        }
+        if (characterCount > 120 && characterCount < 139) {
+        current.css('color', '#8f0001');
+        }
+        
+            
+    });
+
+    $('input[type=text]').keyup(function() {
+    
+    var characterCount = $(this).val().length,
+        current = $('#current'),
+        maximum = $('#maximum'),
+        theCount = $('#the-count');
+    
+    current.text(characterCount);
+
+    
+    /*This isn't entirely necessary, just playin around*/
+    if (characterCount < 70) {
+    current.css('color', '#666');
+    }
+    if (characterCount > 70 && characterCount < 90) {
+    current.css('color', '#6d5555');
+    }
+    if (characterCount > 90 && characterCount < 100) {
+    current.css('color', '#793535');
+    }
+    if (characterCount > 100 && characterCount < 120) {
+    current.css('color', '#841c1c');
+    }
+    if (characterCount > 120 && characterCount < 139) {
+    current.css('color', '#8f0001');
+    }
+    
+    if (characterCount >= 140) {
+    maximum.css('color', '#8f0001');
+    current.css('color', '#8f0001');
+    theCount.css('font-weight','bold');
+    } else {
+    maximum.css('color','#666');
+    theCount.css('font-weight','normal');
+    }
+    
+        
+});
+
+    
 </script>
+
+    
