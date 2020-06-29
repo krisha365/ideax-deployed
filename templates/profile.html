@@ -256,7 +256,6 @@
                         <div class="profile-posts tab" style="margin: 0; padding: 0; box-sizing:border-box">
                             <ul class="producers row">
                                 {% if user.is_authenticated %}
-                                {% if blogs.count != 0 %}
                                 {% for blog in blogs %}
 
                                 {% if blog.is_draft == False %}
@@ -270,20 +269,15 @@
                                 <a class="btn btn-primary signup-messagebox" href="createblog.html">Delete</a> -->
                                     </li>
                                 </form>
-                                <br />                                {% else %}
-                                <h1>No Post</h1>
+                                <br /> 
                                 {% endif %}
                                 {% endfor %}
-                                {% else %}
-                                <h1>No Post</h1>
-                                {% endif %}
                                 {% endif %}
                             </ul>
                         </div>
                         <div class="profile-reviews tab" style="margin: 0; padding: 0; box-sizing:border-box">
                             <ul class="producers">
                                 {% if user.is_authenticated %}
-                                {% if blogs.count != 0 %}
                                 {% for blog in blogs %}
                                 {% if blog.is_draft == True %}
                                 <form action="{% url 'separateblog' %}" method="POST">
@@ -296,13 +290,9 @@
                                 <a class="btn btn-primary signup-messagebox" href="createblog.html">Delete</a> -->
                                 </li>
                                 <br />                                
-                                {% else %}
-                                <h1>No Drafts</h1>
                                 {% endif %}
                                 {% endfor %}
-                                {% else %}
-                                <h1>No Drafts</h1>
-                                {% endif %}
+
                                 {% endif %}
                             </ul>
 
