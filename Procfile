@@ -1,0 +1,1 @@
+web gunicorn ideax.wsgi --log-file -
