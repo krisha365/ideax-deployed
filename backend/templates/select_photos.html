@@ -1,0 +1,228 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - ideaX</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet"
+        href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet"
+        href="//fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
+    <link rel="stylesheet" href="{% static 'css/styles.min.css' %}">
+    <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+   
+
+</head>
+
+<body id="page-top">
+  <nav class="navbar navbar-light navbar-expand-xl fixed-top" id="mainNav">
+    <div class="container-fluid"><a class="navbar-brand js-scroll-trigger" style="color: #eb3812;"
+            href="{% url 'index' %}">ideaX</a><button data-toggle="collapse" data-target="#navbarResponsive"
+            class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive"
+            aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-align-justify"></i></button>
+        {% if user.is_authenticated %}
+        {% for blogi in blogimg %}
+        {% if  user.id == blogi.bloggerid %}
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="nav navbar-nav ml-auto">
+               
+                <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger"
+                        style="color: #eb3812;" href="{% url 'profile' %}">Hello, {{ user.username }}</a>
+
+                <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
+                        href="{% url 'profile' %}"><img class="user-header-size"
+                            src="{{ blogi.img }}"></a>
+
+
+                </li>
+                <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger" style="color: #eb3812;" href="{% url 'logout' %}">Logout</a>
+
+            </ul>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% else %}
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
+                        href="{% url 'signup' %}">sign
+                        in</a>
+                </li>
+                <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
+                    href="{% url 'login' %}">Login</a>
+            </li>
+            </ul>
+        </div>
+
+
+        {% endif %}
+    </div>
+</nav>
+    <div class="sidebar">
+      <a class="open-sans" href="{% url 'createblog' %}"><i class="fa fa-fw fa-home"></i> Welcome</a>
+      <a class="open-sans" href="{% url 'selectcategory' %}"><i class="fa fa-fw fa-list-ul"></i> Category</a>
+      <a class="active open-sans" href="{% url 'selectphotos' %}"><i class="fa fa-fw fa-picture-o"></i> Photos</a>
+      <a class="open-sans" href="{% url 'writecontent' %}"><i class="fa fa-fw fa-pencil"></i> Content</a>
+      <a class="open-sans" href="#contact"><i class="fa fa-fw fa-envelope"></i> Finish</a>
+    </div>
+
+    <div class="main center-font">
+      <img style="height: 200px; width: 200px" src="{% static 'img/icons/clumsy.svg' %}">
+      <h3>Choose Photos for your blog</h3>
+  {% block content %}
+    <form action="/writecontent/" method="POST" id="selpic" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="hidden" name="category" value="{{ category }}">
+      <input type="hidden" name="title" value="{{ title }}">
+      <input type="hidden" name="shortd" value="{{ shortd }}">
+      <div class="file-upload">
+          <button class="btn btn-primary signup-messagebox" id="main_pic" name="main_pic" type="button" onclick="$('.file-main').trigger( 'click' )">Select a main photo </button>
+          <br/><br/>
+          <div class="image-upload-wrap">
+            <input class="file-main" type='file' id="file-main" name="main" accept="*" />
+            <div class="drag-text">
+              <h5>Drag and drop a file or select add Image</h5>
+            </div>
+          </div>
+          <div class="file-upload-content" id="file-upload-content">
+          </div>
+          <div style="margin-top: 20px;">
+              <!-- <a href="{% url 'writecontent' %}" class="btn btn-primary signup-messagebox" >write content</a> -->
+              <input type="submit" class="btn btn-primary signup-messagebox" value="   write content   " name="sub">
+          </div>
+      </div>
+    </form>
+  {% endblock %}  
+  </div>
+
+
+      <!-- script -->
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+  <script src="{% static 'js/script.min.js' %}"></script>
+  <script src="{% static 'js/animation.min.js' %}"></script>
+</body>
+
+<!-- style="background-color: #eb3812;  border: none; border-radius: 20px;" -->
+
+</html>
+
+<script>
+  var selDiv = "";
+	var storedFiles = [];
+	
+	$(document).ready(function() {
+    $("#files").on("change", handleFileSelect);
+    $("#file-main").on("change", handleFileMain);
+		
+		selDiv = $("#file-upload-content"); 
+		$("#myForm").on("submit", handleForm);
+		
+		$("body").on("click", ".selFile", removeFile);
+	});
+		
+	function handleFileSelect(e) {
+
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
+		filesArr.forEach(function(f) {			
+
+			if(!f.type.match("image.*")) {
+				return;
+			}
+			storedFiles.push(f);
+			
+			var reader = new FileReader();
+			reader.onload = function (e) {
+        $('.image-upload-wrap').hide();
+
+        var html = "<div><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selFile file-upload-image' name='blog-image' title='Click to remove'>" + f.name + "<br clear=\"left\"/></div>";
+
+        selDiv.append(html);
+        $('.file-upload-content').show();        
+				
+			}
+			reader.readAsDataURL(f); 
+		});
+		
+  }
+  
+  function handleFileMain(e) {
+
+var files = e.target.files;
+var filesArr = Array.prototype.slice.call(files);
+filesArr.forEach(function(f) {			
+
+  if(!f.type.match("image.*")) {
+    return;
+  }
+  storedFiles.push(f);
+  
+  var reader = new FileReader();
+  reader.onload = function (e) {
+    $('.image-upload-wrap').hide();
+
+    var html = "<div><img src=\"" + e.target.result + "\" data-file='"+f.name+"' class='selFile file-upload-image' name='blog-image' title='Click to remove'>" + f.name + "<br clear=\"left\"/></div>";
+
+    selDiv.append(html);
+    $('.file-upload-content').show();        
+    
+  }
+  reader.readAsDataURL(f); 
+});
+
+}
+		
+	function handleForm(e) {
+		e.preventDefault();
+		var data = new FormData();
+		
+		for(var i=0, len=storedFiles.length; i<len; i++) {
+			data.append('files', storedFiles[i]);	
+		}
+		
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST', 'handler.cfm', true);
+		
+		xhr.onload = function(e) {
+			if(this.status == 200) {
+				console.log(e.currentTarget.responseText);	
+				alert(e.currentTarget.responseText + ' items uploaded.');
+			}
+		}
+		
+		xhr.send(data);
+	}
+		
+	function removeFile(e) {
+
+		var file = $(this).data("file");
+		for(var i=0;i<storedFiles.length;i++) {
+			if(storedFiles[i].name === file) {
+				storedFiles.splice(i,1);
+				break;
+			}
+    }
+    
+    $(this).parent().remove();
+    if(storedFiles.length == 0)
+    {
+      $('.image-upload-wrap').show();
+
+    }
+    
+	}
+</script>
