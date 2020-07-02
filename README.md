@@ -1,34 +1,18 @@
-Create a folder named "media" before starting the project
- 1. install wysiwyg library by:
-  pip install django-wysiwyg
- 2. install ckeditor:
-  pip install django-ckeditor
- 3. run "python manage.py makemigrations"
- 4. run "python manage.py migrate"
+---
+services: app-service\web,app-service
+platforms: python
+author: cephalin
+---
 
+# Django and PostgreSQL sample for Azure App Service
 
-Database updated
-blog's data will be inserted into database after clicking onto "Save as draft" button in preview.html
+This is a sample application that you can use to follow along with the tutorial at 
+[Build a Python and PostgreSQL web app in Azure App Service](https://docs.microsoft.com/azure/app-service/containers/tutorial-python-postgresql-app). 
 
-"Post" functionality implemented.
+The sample is a simple Python Django application that connects to a PostgreSQL database.
 
-Custom CKeditor
-In config.js file of ckeditor add:
+The database connection information is specified via environment variables `DBHOST`, `DBPASS`, `DBUSER`, and `DBNAME`. This app always uses the default PostgreSQL port.
 
+# Contributing
 
- CKEDITOR.editorConfig = function( config ) {
-	
-  config.height = 300
-  config.width = 800
-
-  config.toolbar = [
-   { name: 'clipboard', items: [ 'Cut', 'Copy', '-', 'Undo', 'Redo' ] },
-   { name: 'editing', items: [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ] },
-   '/',
-   { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'CopyFormatting', 'RemoveFormat' ] },
-   { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-' ] },
-   { name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
-   { name: 'insert', items: [ 'HorizontalRule', 'SpecialChar' ] },
-   { name: 'tools', items: [ 'Maximize' ] }
-  ];
-};
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
