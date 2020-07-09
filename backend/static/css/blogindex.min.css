@@ -361,7 +361,7 @@
 
 .kv-item h1 a,.kv-item h1:not(.section-subtitle),.kv-item h2 a,.kv-item h2:not(.section-subtitle),.kv-item h3 a,.kv-item h3:not(.section-subtitle),.kv-item h4 a,.kv-item h4:not(.section-subtitle),.kv-item h5 a,.kv-item h5:not(.section-subtitle),.kv-item h6 a,.kv-item h6:not(.section-subtitle),.kv-site h1 a,.kv-site h1:not(.section-subtitle),.kv-site h2 a,.kv-site h2:not(.section-subtitle),.kv-site h3 a,.kv-site h3:not(.section-subtitle),.kv-site h4 a,.kv-site h4:not(.section-subtitle),.kv-site h5 a,.kv-site h5:not(.section-subtitle),.kv-site h6 a,.kv-site h6:not(.section-subtitle) {
     font-family: 'Raleway'!important;
-    font-weight: 400
+    font-weight: 400;
 }
 
 html {
@@ -434,6 +434,22 @@ html {
 @media (min-width: 768px) {
     .kv-main .container {
         max-width:80vw
+    }
+
+    .kv-main .col-6 {
+        
+        
+    }
+}
+
+@media (min-width: 600px) {
+    .kv-main .container {
+        max-width:80vw
+    }
+
+    .kv-main .col-6 {
+        flex: 0 0 50%;
+        
     }
 }
 
@@ -7796,7 +7812,7 @@ select {
 /* The comment text */
 
 .comment p {
-    line-height: 1.5;
+    line-height: 0.5;
     padding: 18px 22px;
     width: 50%;
     position: relative;
@@ -7864,7 +7880,7 @@ select {
     font-weight: bold;
     cursor: pointer;
 
-    padding: 10px 25px;
+    padding: 6px 14px;
     margin-top: 18px;
 }
 
@@ -7877,6 +7893,22 @@ select {
     forcing the avatar and user info to wrap to the next line*/
     .comment p{
         width: 100%;
+        line-height: 0.5;
+        padding: 18px 22px;
+        position: relative;
+        word-wrap: break-word;
+        height: 46px;
+    }
+
+    .kv-item h1 a,.kv-item h1:not(.section-subtitle),.kv-item h2 a,.kv-item h2:not(.section-subtitle),.kv-item h3 a,.kv-item h3:not(.section-subtitle),.kv-item h4 a,.kv-item h4:not(.section-subtitle),.kv-item h5 a,.kv-item h5:not(.section-subtitle),.kv-item h6 a,.kv-item h6:not(.section-subtitle),.kv-site h1 a,.kv-site h1:not(.section-subtitle),.kv-site h2 a,.kv-site h2:not(.section-subtitle),.kv-site h3 a,.kv-site h3:not(.section-subtitle),.kv-site h4 a,.kv-site h4:not(.section-subtitle),.kv-site h5 a,.kv-site h5:not(.section-subtitle),.kv-site h6 a,.kv-site h6:not(.section-subtitle) {
+        font-family: 'Raleway'!important;
+        font-weight: 400;
+        font-size: 20px;
+    }
+
+    .kv-item a,.kv-item button,.kv-item p,.kv-item span,.kv-site .section-subtitle,.kv-site a,.kv-site blockquote,.kv-site button,.kv-site input,.kv-site label,.kv-site p,.kv-site select,.kv-site span,.kv-site textarea {
+        font-family: 'Work Sans'!important;
+        font-size: 15px;
     }
 
     /* Reverse the order of elements in the user comments,
