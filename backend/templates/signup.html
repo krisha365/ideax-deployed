@@ -13,8 +13,46 @@
 </head>
 
 <body class="min-h-screen bg-gray-100 text-gray-900 flex justify-center signup-background">
-    <div class="max-w-screen-xs bg-white shadow sm:rounded-lg flex justify-center signup-messagebox"
-        style="width: 40%; height: 100%;">
+    
+    <script>
+    window.fbAsyncInit = function() {
+        FB.init({
+        appId      : '299525458082900',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v7.0'
+        });
+        
+        FB.AppEvents.logPageView();   
+        
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+    });
+
+    
+    {
+        status: 'connected',
+        authResponse: {
+            accessToken: '{access-token}',
+            expiresIn:'{unix-timestamp}',
+            reauthorize_required_in:'{seconds-until-token-expires}',
+            signedRequest:'{signed-parameter}',
+            userID:'{user-id}'
+        }
+    }
+
+    </script>
+    <div class="max-w-screen-xs bg-white shadow sm:rounded-lg flex justify-center signup-messagebox sign-u">
 
         <div class="mt-8 flex flex-col items-center">
             <h1 class="font-extrabold" style="font-size: 23px;">
@@ -74,17 +112,8 @@
                                 Sign Up
                             </span>
                         </button>
-                        <p class="mt-6 text-xs text-gray-600 text-center">
-                            I agree to abide by templatana's
-                            <a href="#" class="border-b border-gray-500 border-dotted">
-                                Terms of Service
-                            </a>
-                            and its
-                            <a href="#" class="border-b border-gray-500 border-dotted">
-                                Privacy Policy
-                            </a>
+                        
                             <h3>{{  message  }}</h3>
-                        </p>
                     </div>
                 </form>
             </div>

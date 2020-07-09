@@ -20,10 +20,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&family=Work+Sans&display=swap" rel="stylesheet">
 
     <style>
-        #the-count, #the-count1 {
-            font-size: 12px;
-            color: gray;
-        }
+        
     </style>
 
 </head>
@@ -79,27 +76,27 @@
         <div class="content">
             <form action="/selectcategory/" method="POST" id="shortcon">
                 {% csrf_token %}
-                <div style="position: relative; top: 50px;">
+                <div class="res-con">
                     <div class="form-group">
                         <input type="text" class="form-control title-input" id="input-fileName" name="title" placeholder="Title" style="color: black;" maxlength="80">
-                        <div id="the-count" style="margin-left: 580px;">
+                        <div id="the-count">
                             <span id="current">0</span>
                             <span id="maximum">/ 80</span>
                         </div>
                     </div>
                 </div>
-                <br/><br/>
-                <hr class="hr-modified" style="margin-top: 10px;">
-                <div class="shortd" style="margin-left: 20px; margin-top: 30px;">
+                <br/>
+                <hr>
+                <div class="shortd">
                     <div class="form-group">
                         <textarea id="textarea" name="shortd" rows="6" placeholder="What's on your mind?" maxlength="200"></textarea>
-                        <div id="the-count1" style="margin-left: 780px;">
+                        <div id="the-count1">
                             <span id="current1">0</span>
                             <span id="maximum1">/200</span>
                         </div>
                     </div>
                 </div>
-                <br/>
+                
                 <div>
                     <input type="submit" class="btn btn-primary signup-messagebox" value="  select category  " name="sub">
                 </div>
@@ -116,7 +113,7 @@
     </div>
     <div class="main center-font">
         <img style="height: 300px; width: 300px" src="{% static 'img/icons/reading.svg' %}">
-        <h5>Click below to create one.</h5>
+        <h5 class="detail">Click below to create one.</h5>
         <br/>
         <a href="#" class="btn btn-primary signup-messagebox create">Create a new blog</a>
     </div>
@@ -171,7 +168,7 @@
 
     
         
-});
+    });
 
     
 </script>

@@ -78,7 +78,7 @@
 
     <div class="main center-font">
       <img style="height: 200px; width: 200px" src="{% static 'img/icons/clumsy.svg' %}">
-      <h3>Choose Photos for your blog</h3>
+      <h3 class="detail">Choose Photos for your blog</h3>
   {% block content %}
     <form action="/writecontent/" method="POST" id="selpic" enctype="multipart/form-data">
       {% csrf_token %}

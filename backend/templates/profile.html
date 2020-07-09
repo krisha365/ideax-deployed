@@ -102,7 +102,7 @@
                 <br /><br />
                 {% csrf_token %}
                     <div>Your current username: {{ user.username }}</div><br />
-                    <input type='text' name="usernaam" class="form-control" style="margin: auto; width:30%; border-radius:15px" />
+                    <input type='text' name="usernaam" class="form-control username"/>
                     <br /><br />
                 <div>
                     <input type="submit" class="btn btn-primary signup-messagebox"  value="  Change user name  ">
@@ -121,7 +121,7 @@
                    <!-- <input type='text' name="usernaam" class="form-control" style="margin: auto; width:30%; border-radius:15px" /> -->
                    <div style='text-align:center;'>
                         <script type= "text/javascript" src = "{% static 'js/countries.js' %}"></script>
-                        Select Country:   <select id="country" name ="country" style="border-radius: 20px;height: 40px;"></select> </br></br>
+                        Select Country:   <select id="country" name ="country" class="location"></select> </br></br>
                         Select State: <select name ="state" id ="state" style="border-radius: 20px; height: 40px;"></select>  </br> </br>
                     </div>
                     <br /><br />
@@ -139,7 +139,7 @@
                 <br /><br />
                 {% csrf_token %}
                     <div>Your current Bio: {{ blogi.bio }}</div><br />
-                    <input type='text' name="bio" maxlength="100" class="form-control" style="margin: auto; width:30%; border-radius:15px" />
+                    <input type='text' name="bio" maxlength="100" class="form-control bio"/>
                     <br /><br />
                 <div>
                     <input type="submit" class="btn btn-primary signup-messagebox"  value="  Change Bio  ">
@@ -187,7 +187,6 @@
                 <div class="profile-nav-info">
                     <h3 class="user-name">{{ user.username }}</h3>
                     <div class="address">
-                        
                         <span id="country" class="country">{{ blogi.location }}.</span>
                     </div>
 
@@ -241,7 +240,7 @@
                     </div>
 
                 </div>
-                <div class="right-side" style="width: 100%;">
+                <div class="right-side">
 
                     <div class="nav-niche nav">
                         <ul style="padding: 0">
@@ -299,7 +298,7 @@
                         </div>
                         <div class="profile-settings tab">
                             <div class="account-setting">
-                                <h1>Acount Setting</h1>
+                                <h1 class="set">Acount Setting</h1>
                                 <br />
                                 <table style="margin: auto;">
                                     <tr>

@@ -79,7 +79,7 @@
     {% block content %}
     <div class="main-container">
       <div>
-        <h2 class="title">Choose your category</h2>
+        <h2 class="title detail">Choose your category</h2>
           <!--Rounded checkbox buttons-->
             <form action="/selectphotos/" method="POST" id="selectcat">
               {% csrf_token %}
@@ -109,15 +109,35 @@
                     <input type="checkbox" id="category" name="category" class="form-check-input" value="Travel"> Travel
                 </label>
                 </div>
-                &nbsp;&nbsp;
-                <div>
-                <label class="btn btn-pink btn-rounded btn-md form-check-label check">
-                    <input type="checkbox" id="category" name="category" class="form-check-input" value="Music"> Music
-                </label>
-                </div>
+                
             </div>
             <br/>
             <div class="btn-group middle" data-toggle="buttons">
+                <div>
+                    <label class="btn btn-pink btn-rounded btn-md form-check-label check">
+                        <input type="checkbox" id="category" name="category" class="form-check-input" value="Music"> Music
+                    </label>
+                </div>
+                &nbsp;&nbsp;
+                <div>
+                    <label class="btn btn-pink btn-rounded btn-md form-check-label check">
+                        <input type="checkbox" id="category" name="category" class="form-check-input" value="Sports"> Sports
+                    </label>
+                </div>
+                &nbsp;&nbsp;
+                <div>
+                    <label class="btn btn-pink btn-rounded btn-md form-check-label check">
+                        <input type="checkbox" id="category" name="category" class="form-check-input" value="News"> News
+                    </label>
+                </div>
+                &nbsp;&nbsp;
+                <div>
+                    <label class="btn btn-pink btn-rounded btn-md form-check-label check">
+                        <input type="checkbox" id="category" name="category" class="form-check-input" value="Spiritual"> Spiritual
+                    </label>
+                </div>
+            </div>
+            <div class="btn-group middle1" data-toggle="buttons">
                 <div>
                 <label class="btn btn-pink btn-rounded active btn-md form-check-label check">
                     <input type="checkbox" id="category" name="category" class="form-check-input" value="Lifestye"> Lifestye
@@ -139,12 +159,6 @@
                 <div>
                 <label class="btn btn-pink btn-rounded btn-md form-check-label check">
                     <input type="checkbox" id="category" name="category" class="form-check-input" value="Political"> Political
-                </label>
-                </div>
-                &nbsp;&nbsp;
-                <div>
-                <label class="btn btn-pink btn-rounded btn-md form-check-label check">
-                    <input type="checkbox" id="category" name="category" class="form-check-input" value="Sports"> Sports
                 </label>
                 </div>
             </div><br/>
@@ -172,12 +186,7 @@
                     <input type="checkbox" id="category" name="category" class="form-check-input" value="Movie"> Movie
                 </label>
                 </div>
-                &nbsp;&nbsp;
-                <div>
-                <label class="btn btn-pink btn-rounded btn-md form-check-label check">
-                    <input type="checkbox" id="category" name="category" class="form-check-input" value="News"> News
-                </label>
-                </div>
+                
             </div>
   
         </div>

@@ -121,9 +121,8 @@
                       </div>
                       {% endfor %} 
                   </div> 
-                  <p style="font-family: 'Work Sans'!important; font-size: 24pt">Description : {{ contente|safe }}</p>
+                  <p class="blog-con">Description : {{ contente|safe|linebreaks }}</p>
                 </div>
-      
       
                 <div class="pt-5">
                   <p>Categories: {{ category }}</p>
