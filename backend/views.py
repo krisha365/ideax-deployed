@@ -4,10 +4,9 @@ from django.contrib import messages
 from .models import Blogs, User_profile, Comment
 from django.contrib.auth.models import auth, User
 from base64 import b64encode
-import random
+import random, os
 from django.contrib.sites import requests
 from datetime import datetime
-from django.contrib.sites.shortcuts import get_current_site
 
 
 # Create your views here.
@@ -31,11 +30,17 @@ def fileReaders(naam):
     return(conte)
 
 def handle_main_file(f):
+    i = datetime.now()
+    now = str(i.year) + '-' + str(i.month) + '-' + str(i.day) + '-' + str(i.day) + '-' + str(i.hour) + '-' + str(i.minute) + '-' + str(i.second)
+    filenaam = 'media/' + str(now) + str(f.name)  
     destination = open('media/%s' % f.name, 'wb+')
 
     for chunk in f.chunks():
         destination.write(chunk)
     destination.close()
+    os.rename('media/%s' % f.name, filenaam)
+    filenaam = '/' + filenaam
+    return(filenaam)
     
     
 
@@ -52,7 +57,7 @@ def blogindex(request):
 def separateblog(request):
     global tempt
     if request.method == 'POST': 
-        tempt = request.POST.get('title')
+        tempt = request.POST.get('blogid')
         print(tempt)
     else:
         print(tempt)
@@ -63,39 +68,37 @@ def separateblog(request):
     tempe = 0
     for blog in blogs:
         temp = blog.blogid
-        tempe = blog.bloggerid
+        tempe = blog.bloggerid_id
     name = request.user.username
-    comm = Comment.objects.filter(bloggerid=temp)
+    comm = Comment.objects.filter(blogid=temp)
     blogimg = User_profile.objects.all()
     return render(request, "separate-blog.html", {'blogs': blogs, 'blogimg':blogimg, 'comment':comm, 'blogim':conte})
         
     
 def comment(request):
-    global tempt
     if request.method == 'POST':
         if request.user.is_authenticated:
             name = request.POST.get('username')
             email = request.POST.get('email')
-            blogid = request.POST.get('id')
+            bloggerid = request.POST.get('id')
             title = request.POST.get('title')
             tempt = title
-            bloggerid = request.POST.get('bloggerid')
+            blogid = request.POST.get('blogid')
             message = request.POST.get('message')
             img = request.POST.get('image')
-            print(img)
-            coom = Comment(blogid=blogid, name=name, email=email, bloggerid=bloggerid, message=message, main_img=img)
+            coom = Comment(blogid=Blogs.objects.get(blogid=blogid), bloggerid=bloggerid, name=name, email=email, message=message, main_img=img)
             coom.save()
             return redirect('separateblog')
         else:
             name = request.POST.get('username')
             email = request.POST.get('email')
-            blogid = request.POST.get('id')
+            bloggerid = request.POST.get('id')
             title = request.POST.get('title')
             tempt = title
-            bloggerid = request.POST.get('bloggerid')
+            blogid = request.POST.get('blogid')
             message = request.POST.get('message')
             img = request.POST.get('image')
-            coom = Comment(blogid=blogid, name=name, email=email, bloggerid=bloggerid, message=message, main_img=img)
+            coom = Comment(blogid=Blogs.objects.get(blogid=blogid), bloggerid=bloggerid, message=message, email=email,   main_img=img, name=name)
             coom.save()
             return redirect('separateblog')
             
@@ -143,8 +146,7 @@ def writecontent(request):
         context1['category'] = cat
         mime = "/media/"
         main = request.FILES.get("main")
-        handle_main_file(main)
-        main = mime + str(main)
+        main = handle_main_file(main)
         context1['main'] = main
         return render(request, "write_content.html", context1)
     else:
@@ -152,7 +154,7 @@ def writecontent(request):
 
 def preview(request):
     global context1
-    blogimg = User_profile.objects.filter(bloggerid=request.user.id)
+    blogimg = User_profile.objects.filter(bloggerid_id=request.user.id)
     title = request.POST.get('title', None)
     content = request.POST.get('content', None)
     short = request.POST.get('shortd', None)
@@ -173,10 +175,10 @@ def createblog(request):
     if request.user.is_authenticated:
         id = request.user.id
         name = request.user.username
-        if User_profile.objects.filter(bloggerid=id).exists():
+        if User_profile.objects.filter(bloggerid_id=id).exists():
             pass
         else:
-            pro = User_profile(bloggerid=id, username=name)
+            pro = User_profile( username=name, bloggerid=User.objects.get(id=id))
             pro.save()
         return render(request, "createblog.html", {'blogimg': blogimg})
     else:
@@ -203,8 +205,10 @@ def signup(request):
             else:            
                 user = User.objects.create_user(username=user_name, email=user_email, password=user_password_1, first_name=first_name, last_name=last_name)
                 user.save()
+                user = auth.authenticate(username=user_name, password=user_password_1)
+                auth.login(request, user)
                 print('user created')
-                return redirect('index')
+                return redirect('createblog')
         else:
                 context = { "message" : 'Password not matching'}
                 messages.info(request, 'Password not matching')
@@ -231,7 +235,7 @@ def login(request):
 
 def profile(request):
     user = request.user.id
-    blogs = Blogs.objects.all().filter(bloggerid=user)
+    blogs = Blogs.objects.all().filter(bloggerid_id=user)
     blogimg = User_profile.objects.all()
     if request.method == 'POST':
         if request.user.is_authenticated:
@@ -244,39 +248,34 @@ def profile(request):
                 email = request.POST.get('useremail', None)
                 country = request.POST.get('country', None)
                 state = request.POST.get('state', None)
-                
                 bio = request.POST.get('bio', None)
                 print(bio)
                 if main != None:
-                    handle_main_file(main)
-                    main = mime + str(main)
+                    maine = handle_main_file(main)
+                    print(maine)
                     if User_profile.objects.filter(bloggerid=user).exists():
-                        User_profile.objects.filter(bloggerid=user).update(img=main)
+                        User_profile.objects.filter(bloggerid=user).update(img=maine)
+                        Comment.objects.filter(bloggerid=user).update(main_img=maine)
                         return redirect('profile')
-                    else:
-                        blogimg = User_profile(bloggerid = user, img=main, username=username)
-                        blogimg.save()
-                        return redirect('/')
                 elif name != None:
                     User.objects.filter(id=user).update(username=name)
+                    User_profile.objects.filter(bloggerid_id=user).update(username=name)
+                    Comment.objects.filter(bloggerid=user).update(name=name)
                     return redirect('profile')
                 elif email != None:
                     User.objects.filter(id=user).update(email=email)
+                    Comment.objects.filter(bloggerid=user).update(email=email)
                     return redirect('profile')
                 elif bio != None:
-                    User_profile.objects.filter(id=user).update(bio=bio)
+                    User_profile.objects.filter(bloggerid=user).update(bio=bio)
                     return redirect('profile')
                 elif country != None and state != None:
                     location = state+", "+country
-                    User_profile.objects.filter(id=user).update(location=location)
+                    User_profile.objects.filter(bloggerid=user).update(location=location)
                     return redirect('profile')
                 
     else:
         return render(request, "profile.html", {'blogs': blogs, 'blogimg': blogimg})
-    
-
-
-
 
 # Backend Logic
 
@@ -292,12 +291,6 @@ def saveDraft(request):
             temp = random.randint(1,10000000)
             blog = Blogs(title = context1['title'], short_description = context1['shortd'], content=context1['content'], category=context1['category'], bloggerid=request.user.id, blogid= temp, is_draft=True,main_img=context1['main'])
             blog.save()
-            # blogimg = Blogs_images(blogid = temp, img=context1['main'], is_main = True)
-            # blogimg.save()
-            # if context1['photos']:
-            #     for i in context1['photos']:
-            #         blogimg = Blogs_images(blogid = temp, img = context1['photos'][i])
-            #         blogimg.save()
             return redirect('profile')
         
         
@@ -306,14 +299,6 @@ def postBlog(request):
     if request.user.is_authenticated:
         if request.user.is_active:
             temp = random.randint(1,10000000)
-            blog = Blogs(title = context1['title'], short_description = context1['shortd'], content=context1['content'], category=context1['category'], bloggerid=request.user.id, blogid= temp, is_draft=False,main_img=context1['main'])
+            blog = Blogs(title = context1['title'], bloggerid_id=request.user.id, short_description = context1['shortd'], content=context1['content'], category=context1['category'],  blogid= temp, is_draft=False,main_img=context1['main'])
             blog.save()
-            # blogimg = Blogs_images(blogid = temp, img=context1['main'], is_main = True)
-            # blogimg.save()
-            # if context1['photos']:
-            #     for i in context1['photos']:
-            #         blogimg = Blogs_images(blogid = temp, img = context1['photos'][i])
-            #         blogimg.save()
-    
             return redirect('blogindex')
-    
