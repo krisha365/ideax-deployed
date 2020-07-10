@@ -36,7 +36,7 @@
         aria-label="Toggle navigation"><i class="fa fa-align-justify"></i></button>
       {% if user.is_authenticated %}
       {% for blogi in blogimg %}
-      {% if  user.id == blogi.bloggerid %}
+      {% if  user.id == blogi.bloggerid_id %}
 
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="nav navbar-nav ml-auto">
@@ -90,7 +90,7 @@
                           style="display:none;"></span>
                       </h1>
                       {% for blogi in blogimg %}
-                      {% if blogi.bloggerid == blog.bloggerid %}
+                      {% if blogi.bloggerid_id == blog.bloggerid_id %}
                       <p class="section-subtitle section-subtitle--md">
                         Written by {{ blogi.username }}<span data-prop="subtitle" class="ck-editable-element"
                           data-editable="basic" style="display:none;"></span>
@@ -110,7 +110,7 @@
                 <div class="content border-radius default-card seamless box-shadow"
                   style="box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
                   {% for blogi in blogimg %}
-                  {% if blogi.bloggerid == blog.bloggerid %}
+                  {% if blogi.bloggerid_id == blog.bloggerid_id %}
                   <img src="{{ blogi.img }}" alt="Image Placeholder"
                     style="width: 150px; position: relative;     max-width: 150px;
                                     border-radius: 50%; margin-top:-140px; height:150px; z-index:1; box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);"
@@ -161,13 +161,11 @@
                   <input type="hidden" name="username" value="{{ user.username }}">
                   <input type="hidden" name="email" value="{{ user.email }}">
                   <input type="hidden" name="id" value="{{ user.id }}">
-                  <input type="hidden" name="bloggerid" value="{{ blog.blogid }}">
-                  <input type="hidden" name="title" value="{{ blog.blogid }}">
-                  <input type="hidden" name="path" value="{{ request.get_full_path }}">
+                  <input type="hidden" name="blogid" value="{{ blog.blogid }}">
                   {% for blogi in blogimg %}
 
 
-                  <div>{% if  user.id == blogi.bloggerid %}
+                  <div>{% if  user.id == blogi.bloggerid_id %}
                     <input type="hidden" name="image" value="{{ blogi.img }}">
 
                     <img src="{{ blogi.img }}" width="35px" alt="Profile of Bradley Jones" title="{{ blogi.username }}" />
@@ -182,12 +180,12 @@
                   {% csrf_token %}
                   <input type="hidden" name="image" value="/media/icons8-user-100.png">
                 <input type="hidden" name="id" value="-1">
-                <input type="hidden" name="bloggerid" value="{{ blog.blogid }}">
+                <input type="hidden" name="blogid" value="{{ blog.blogid }}">
                 <div class="form-group">
                   <label for="name">Name *</label>
-                  <input type="text" name="username" id="name">
+                  <input type="text" style="width: 100%;" name="username" id="name">
                   <label for="email">Email *</label>
-                  <input type="email" name="email" id="email">
+                  <input type="email" name="email" style="width: 100%;" id="email">
                   <label for="message">Message</label>
                   <textarea name="message" id="message"></textarea>
                 </div>

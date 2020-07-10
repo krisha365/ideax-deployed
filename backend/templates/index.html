@@ -24,7 +24,8 @@
                 aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-align-justify"></i></button>
             {% if user.is_authenticated %}
             {% for blogi in blogimg %}
-            {% if  user.id == blogi.bloggerid %}
+
+            {% if  user.id == blogi.bloggerid_id %}
 
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="nav navbar-nav ml-auto">

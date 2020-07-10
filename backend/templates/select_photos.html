@@ -30,7 +30,7 @@
             aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-align-justify"></i></button>
         {% if user.is_authenticated %}
         {% for blogi in blogimg %}
-        {% if  user.id == blogi.bloggerid %}
+        {% if  user.id == blogi.bloggerid_id %}
 
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="nav navbar-nav ml-auto">
@@ -89,7 +89,7 @@
           <button class="btn btn-primary signup-messagebox" id="main_pic" name="main_pic" type="button" onclick="$('.file-main').trigger( 'click' )">Select a main photo </button>
           <br/><br/>
           <div class="image-upload-wrap">
-            <input class="file-main" type='file' id="file-main" name="main" accept="*" />
+            <input class="file-main" type='file' id="file-main" name="main" accept="*"  required=""/>
             <div class="drag-text">
               <h5>Drag and drop a file or select add Image</h5>
             </div>
