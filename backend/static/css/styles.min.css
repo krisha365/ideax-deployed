@@ -302,6 +302,16 @@ input#search-bar:focus:-ms-placeholder {
 
 /* search bar */
 
+/* login css */
+
+.login-box{
+  width: 40%; 
+  height: 100%; 
+  margin-top:130px;
+}
+
+/* login css end */
+
 /* singup CSS */
 
 .signup-background {
@@ -1845,6 +1855,11 @@ ul a {
 
 @media (max-width: 600px) {
   
+  .login-box{
+    width: 90%; 
+    height: 100%; 
+    margin-top:130px;
+  }
   .sign-u{
     width: 90%; 
     height: 40%;
