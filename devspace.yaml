@@ -1,0 +1,17 @@
+version: v1beta9
+images:
+  app:
+    image: ""
+    tags:
+    - latest
+    createPullSecret: true
+    build:
+      disabled: true
+deployments:
+- name: kuber
+  helm:
+    componentChart: true
+    values:
+      containers:
+      - {}
+dev: {}

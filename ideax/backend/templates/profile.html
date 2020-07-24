@@ -1,0 +1,416 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home - ideaX</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet"
+        href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+    <link rel="stylesheet"
+        href="//fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Bree+Serif&display=swap">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
+    <link rel="stylesheet" href="{% static 'css/styles.min.css' %}">
+
+</head>
+
+<body id="page-top">
+
+    <nav class="navbar navbar-light navbar-expand-xl fixed-top" id="mainNav">
+        <div class="container-fluid"><a class="navbar-brand js-scroll-trigger" style="color: #eb3812;"
+                href="{% url 'index' %}">ideaX</a><button data-toggle="collapse" data-target="#navbarResponsive"
+                class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-align-justify"></i></button>
+            {% if user.is_authenticated %}
+            {% for blogi in blogimg %}
+            {% if  user.id == blogi.bloggerid_id %}
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav ml-auto">
+
+                    <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger"
+                            style="color: #eb3812;" href="{% url 'profile' %}">Hello, {{ user.username }}</a>
+
+                    <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
+                            href="{% url 'profile' %}"><img class="user-header-size" src="{{ blogi.img }}"></a>
+
+
+                    </li>
+                    <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger"
+                            style="color: #eb3812;" href="{% url 'logout' %}">Logout</a>
+
+                </ul>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
+                            href="{% url 'signup' %}">sign
+                            in</a>
+                    </li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
+                            href="{% url 'login' %}">Login</a>
+                    </li>
+                </ul>
+            </div>
+
+
+            {% endif %}
+        </div>
+    </nav>
+    {% for blogi in blogimg %}
+    {% if  user.id == blogi.bloggerid_id %}
+    <div class="front">
+        <div class="content">
+            <form action="{% url 'profile' %}" method="POST" id="shortcon" enctype="multipart/form-data">
+
+
+                {% csrf_token %}
+                <div class="file-upload">
+                    <button class="btn btn-primary signup-messagebox" id="main_pic" name="main_pic" type="button"
+                        onclick="$('.file-main').trigger( 'click' )">Select your profile pic </button>
+                    <input class="file-main" type='file' id="file-main" name="maine" onchange="readURL(this);" />
+                    <br /><br /><br />
+                    <div class="this-one">
+                        <img class="change-img this-img" src="{{ blogi.img }}" width="200" style="border-radius: 50%"
+                            alt="Profile Image">
+                    </div>
+                    <div class="file-upload-content" id="file-upload-content">
+                    </div>
+                </div>
+                <br /><br />
+                <div>
+                    <input type="submit" class="btn btn-primary signup-messagebox" value="  Change profilc pic  ">
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <div class="ch-username fronte" >
+        <div class="content" style="margin: auto;">
+            <form action="{% url 'profile' %}" method="POST" id="shortcon" enctype="multipart/form-data">
+
+                <br /><br />
+                {% csrf_token %}
+                    <div>Your current username: {{ user.username }}</div><br />
+                    <input type='text' name="usernaam" class="form-control username"/>
+                    <br /><br />
+                <div>
+                    <input type="submit" class="btn btn-primary signup-messagebox"  value="  Change user name  ">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="ch-location fronte" >
+        <div class="content" style="margin: auto;">
+            <form action="{% url 'profile' %}" method="POST" id="shortcon" enctype="multipart/form-data">
+
+                <br /><br />
+                {% csrf_token %}
+                    <div>Your current Location: {{ blogi.location }}</div><br />
+                   <!-- <input type='text' name="usernaam" class="form-control" style="margin: auto; width:30%; border-radius:15px" /> -->
+                   <div style='text-align:center;'>
+                        <script type= "text/javascript" src = "{% static 'js/countries.js' %}"></script>
+                        Select Country:   <select id="country" name ="country" class="location"></select> </br></br>
+                        Select State: <select name ="state" id ="state" style="border-radius: 20px; height: 40px;"></select>  </br> </br>
+                    </div>
+                    <br /><br />
+                <div>
+                    <input type="submit" class="btn btn-primary signup-messagebox"  value="  Change Location  ">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="ch-bio fronte" >
+        <div class="content" style="margin: auto;">
+            <form action="{% url 'profile' %}" method="POST" id="shortcon" enctype="multipart/form-data">
+
+                <br /><br />
+                {% csrf_token %}
+                    <div>Your current Bio: {{ blogi.bio }}</div><br />
+                    <input type='text' name="bio" maxlength="100" class="form-control bio"/>
+                    <br /><br />
+                <div>
+                    <input type="submit" class="btn btn-primary signup-messagebox"  value="  Change Bio  ">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="ch-email fronte" >
+        <div class="content" style="margin: auto;">
+            <form action="{% url 'profile' %}" method="POST" id="shortcon" enctype="multipart/form-data">
+
+                <br /><br />
+                {% csrf_token %}
+                    <div>Your current Email: {{ user.email }}</div><br />
+                    <input type='email' name="useremail" class="form-control" style="margin: auto; width:30%; border-radius:15px" />
+                    <br /><br />
+                <div>
+                    <input type="submit" class="btn btn-primary signup-messagebox"  value="  Change Email  ">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    
+    
+    
+    <div class="profile-main" style="height: 100%;">
+        <div class="container">
+            <div class="profile-header">
+                <div class="avatar-edit">
+                </div>
+                <div class="profile-img">
+                    <div class="profile-imge">
+
+
+                        <img src="{{ blogi.img }}" width="200" style="display: block;" alt="Profile Image">
+
+                        <div class="edit"> <a href="#" class="iconic create"><i style="color: #ddd;"
+                                    class="fa fa-pencil"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-nav-info">
+                    <h3 class="user-name">{{ user.username }}</h3>
+                    <div class="address">
+                        <span id="country" class="country">{{ blogi.location }}.</span>
+                    </div>
+
+                </div>
+                <!-- <div class="profile-option">
+                    <div class="notification">
+                        <i class="fa fa-bell"></i>
+                        <span class="alert-message" style="box-sizing: border-box;">3</span>
+                    </div>
+                </div> -->
+            </div>
+
+
+
+            <div class="main-bd" style="box-sizing: border-box;">
+                <div class="left-side">
+                    <div class="profile-side" style="box-sizing: border-box;">
+                        <!-- <p class="mobile-no"><i class="fa fa-phone"></i> +23470xxxxx700</p> -->
+                        <p class="user-mail"><i class="fa fa-envelope"></i> {{user.email}}</p>
+                        <div class="user-bio">
+                            <h3>Bio</h3>
+                            <p>
+                                {{ blogi.bio }}
+                            </p>
+                        </div>
+                        <br />
+                        <!-- <div class="profile-btn">
+                        <button class="btn btn-primary" style="margin-right: 20px;
+                margin-left: 5px;"><i class="fa fa-comment"></i> Chat</button>
+                        <button class="btn btn-primary" style="
+                margin-right: 5px; padding-left: 8px;
+            "><i class="fa fa-plus"></i> Create</button>
+                    </div> -->
+                        <br />
+                        <!-- <div class="user-rating">
+                        <h3 class="rating">4.5</h3>
+                        <div class="rate">
+                            <div class="star-outer">
+                                <div class="star-inner">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            </div>
+                            <span class="no-of-user-rate"><span>123</span>&nbsp;&nbsp;reviews</span>
+                        </div>
+
+                    </div> -->
+                    </div>
+
+                </div>
+                <div class="right-side">
+
+                    <div class="nav-niche nav">
+                        <ul style="padding: 0">
+                            <li onclick="tabs(0)" class="user-post active">Posts</li>
+                            <li onclick="tabs(1)" class="user-review">Drafts</li>
+                            <li onclick="tabs(2)" class="user-setting"> Settings</li>
+                        </ul>
+                    </div>
+
+
+                    <div class="profile-body">
+                        <div class="profile-posts tab" style="margin: 0; padding: 0; box-sizing:border-box">
+                            <ul class="producers row">
+                                {% if user.is_authenticated %}
+                                {% for blog in blogs %}
+
+                                {% if blog.is_draft == False %}
+                                <form action="{% url 'separateblog' %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="title" value="{{ blog.blogid }}">
+                                    <li><input class="profile-blog-size" type="image" src="{{ blog.main_img }}">
+                                        <br />
+                                        <p class="no-margin-font">{{ blog.title }}</p><br />
+                                        <!-- <a class="btn btn-primary signup-messagebox" href="createblog.html">View</a>
+                                <a class="btn btn-primary signup-messagebox" href="createblog.html">Delete</a> -->
+                                    </li>
+                                </form>
+                                <br /> 
+                                {% endif %}
+                                {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="profile-reviews tab" style="margin: 0; padding: 0; box-sizing:border-box">
+                            <ul class="producers">
+                                {% if user.is_authenticated %}
+                                {% for blog in blogs %}
+                                {% if blog.is_draft == True %}
+                                <form action="{% url 'separateblog' %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="title" value="{{ blog.blogid }}">
+                                    <li><input class="profile-blog-size" type="image" src="{{ blog.main_img }}">
+                                        <br />
+                                    <p class="no-margin-font">{{ blog.title }}</p><br />
+                                    <!-- <a class="btn btn-primary signup-messagebox" href="createblog.html">View</a>
+                                <a class="btn btn-primary signup-messagebox" href="createblog.html">Delete</a> -->
+                                </li>
+                                <br />                                
+                                {% endif %}
+                                {% endfor %}
+
+                                {% endif %}
+                            </ul>
+
+                        </div>
+                        <div class="profile-settings tab">
+                            <div class="account-setting">
+                                <h1 class="set">Acount Setting</h1>
+                                <br />
+                                <table style="margin: auto;">
+                                    <tr>
+                                        <td><i class="fa fa-user"></i></td>
+                                        <td><a href="#" class="create-user"><h4 class="bree clicker ">&nbsp;Change Username</h4></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fa fa-heart"></i></td>
+                                        <td><a href="#" class="create-bio"><h4 class="bree clicker">&nbsp;Change Bio</h4></a></td>
+                                    </tr><br/>
+                                    <tr>
+                                        <td><i class="fa fa-map-marker"></i></td>
+                                        <td><a href="#" class="create-location"><h4 class="bree clicker">&nbsp;Change Location</h4></a></td>
+                                    </tr>
+                                    <tr>
+                                        <td><i class="fa fa-envelope"></i></td>
+                                        <td><a href="#" class="create-email"><h4 class="bree clicker">&nbsp;Change Email</h4></a></td>
+                                    </tr>
+                                </table>
+                                <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit omnis eaque,
+                                    expedita nostrum, facere libero provident laudantium. Quis, hic doloribus!
+                                    Laboriosam
+                                    nemo tempora praesentium. Culpa quo velit omnis, debitis maxime, sequi
+                                    animi dolores commodi odio placeat, magnam, cupiditate facilis impedit veniam?
+                                    Soluta
+                                    aliquam excepturi illum natus adipisci ipsum quo, voluptatem, nemo, commodi,
+                                    molestiae
+                                    doloribus magni et. Cum, saepe enim quam voluptatum vel debitis
+                                    nihil, recusandae, omnis officiis tenetur, ullam rerum.</p> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif%}
+    {% endfor%}
+
+    <!-- script -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/profile.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script src="{% static 'js/script.min.js' %}"></script>
+    <script src="{% static 'js/animation.min.js' %}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".front").hide();
+            $(".create").click(function () {
+                $(".front").show();
+                $("#pro").hide();
+            });
+
+        });
+        $(document).ready(function () {
+            $(".ch-username").hide();
+            $(".create-user").click(function () {
+                $(".ch-username").show();
+                $("#pro").hide();
+            });
+
+        });
+        $(document).ready(function () {
+            $(".ch-email").hide();
+            $(".create-email").click(function () {
+                $(".ch-email").show();
+                $("#pro").hide();
+            });
+
+        });
+        $(document).ready(function () {
+            $(".ch-bio").hide();
+            $(".create-bio").click(function () {
+                $(".ch-bio").show();
+                $("#pro").hide();
+            });
+
+        });
+        $(document).ready(function () {
+            $(".ch-location").hide();
+            $(".create-location").click(function () {
+                $(".ch-location").show();
+                $("#pro").hide();
+            });
+
+        });
+    </script>
+
+
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('.this-img')
+                        .attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+<script language="javascript">
+	populateCountries("country", "state"); // first parameter is id of country drop-down and second parameter is id of state drop-down
+</script>
+
+</body>
+
+</html>

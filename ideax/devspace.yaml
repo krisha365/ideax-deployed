@@ -1,0 +1,65 @@
+version: v1beta9
+images:
+  app:
+    image: rahulghetia/ideax
+    preferSyncOverRebuild: true
+    injectRestartHelper: true
+    appendDockerfileInstructions:
+      - USER root
+deployments:
+  - name: database
+    helm:
+      chart:
+        name: stable/postgresql
+        version: "6.5.9"
+      values:
+        postgresqlDatabase: "db_mysite"
+        postgresqlUsername: "db_user"
+        postgresqlPassword: ${DB_PASSWORD}
+  - name: ideax # this line may be different for you
+    helm:
+      componentChart: true
+      values:
+        containers:
+          - image: rahulghetia/ideax # this line may be different for you
+            env:
+              - name: DB_HOST
+                value: "database-postgresql"
+              - name: DB_NAME
+                value: "db_mysite"
+              - name: DB_USER
+                value: "db_user"
+              - name: DB_PASSWORD
+                value: ${DB_PASSWORD}
+        service:
+          ports:
+            - port: 9080
+        ingress:
+          tls: true
+          rules:
+            - host: www.ideax.live
+            - host: ideax.live
+              path: /
+dev:
+  ports:
+    - imageName: app
+      forward:
+        - port: 9080
+  open:
+    - url: http://www.ideax.live
+  sync:
+    - imageName: app
+      excludePaths:
+        - .git/
+      uploadExcludePaths:
+        - Dockerfile
+        - devspace.yaml
+      onUpload:
+        restartContainer: true
+profiles:
+  - name: production
+    patches:
+      - op: remove
+        path: images.app.injectRestartHelper
+      - op: remove
+        path: images.app.appendDockerfileInstructions

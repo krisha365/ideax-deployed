@@ -1,0 +1,170 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - ideaX</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet"
+        href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800">
+    <link rel="stylesheet"
+        href="//fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto">
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.css">
+    <link rel="stylesheet" href="{% static 'css/styles.min.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500&family=Work+Sans&display=swap" rel="stylesheet">
+    <style>
+        .tox-notifications-container {
+            display: none !important;
+        }
+        .tox-tinymce {
+            border: 0px !important;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23) !important;
+         }
+    </style>
+
+
+</head>
+
+<body id="page-top">
+    <nav class="navbar navbar-light navbar-expand-xl fixed-top" id="mainNav">
+        <div class="container-fluid"><a class="navbar-brand js-scroll-trigger" style="color: #eb3812;"
+                href="{% url 'index' %}">ideaX</a><button data-toggle="collapse" data-target="#navbarResponsive"
+                class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-align-justify"></i></button>
+            {% if user.is_authenticated %}
+            {% for blogi in blogimg %}
+            {% if  user.id == blogi.bloggerid_id %}
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav ml-auto">
+
+                    <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger"
+                            style="color: #eb3812;" href="{% url 'profile' %}">Hello, {{ user.username }}</a>
+
+                    <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
+                            href="{% url 'profile' %}"><img class="user-header-size" src="{{ blogi.img }}"></a>
+
+
+                    </li>
+                    <li class="nav-item greeting-align" role="presentation"><a class="nav-link active js-scroll-trigger"
+                            style="color: #eb3812;" href="{% url 'logout' %}">Logout</a>
+
+                </ul>
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
+                            href="{% url 'signup' %}">sign
+                            in</a>
+                    </li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active js-scroll-trigger"
+                            href="{% url 'login' %}">Login</a>
+                    </li>
+                </ul>
+            </div>
+
+
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="sidebar">
+        <a class="open-sans" href="{% url 'createblog' %}"><i class="fa fa-fw fa-home"></i> Welcome</a>
+        <a class="open-sans" href="{% url 'selectcategory' %}"><i class="fa fa-fw fa-list-ul"></i> Category</a>
+        <a class="open-sans" href="{% url 'selectphotos' %}"><i class="fa fa-fw fa-picture-o"></i> Photos</a>
+        <a class="active open-sans" href="{% url 'writecontent' %}"><i class="fa fa-fw fa-pencil"></i> Content</a>
+        <a class="open-sans" href="#contact"><i class="fa fa-fw fa-envelope"></i> Finish</a>
+    </div>
+    {% block content %}
+    <div class="main center-font">
+        <form action="/preview/" method="POST" id="pre">
+            {% csrf_token %}
+            <input type="hidden" name="category" value="{{ category }}">
+            <input type="hidden" name="title" value="{{ title }}">
+            <input type="hidden" name="shortd" value="{{ shortd }}">
+            <div class="form-group">
+
+                <div class="text" style="width: 75%; margin:auto">
+
+                    <textarea id="mytextarea" name="content" placeholder="Share your experience here."
+                        style="font-family:'Work Sans'!important;"></textarea>
+                </div>
+
+            </div>
+            <input type="submit" name="sub" class="btn btn-primary signup-messagebox" value="   Finish   ">
+        </form>
+
+    </div>
+    {% endblock %}
+
+
+
+    <!-- script -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script src="{% static 'js/script.min.js' %}"></script>
+    <script src="{% static 'js/animation.min.js' %}"></script>
+    <script src="//cdn.tiny.cloud/1/hclg9o9haua6hsw7iwbzcxzq3vrgofj72m2jciqq4o02ztga/tinymce/5/tinymce.min.js"
+        referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            height: "480",
+            selector: '#mytextarea',  
+            branding: false,
+            menubar: false,
+            statusbar: false,
+            style_formats: [
+            {title: 'Normal', block: 'p'},
+            {title: 'code', format: 'code'},
+            {title: 'blockquote', format: 'blockquote'}
+        ],
+            toolbar: [
+                "undo | redo | styleselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | image "
+            ],
+            plugins: 'image code advlist lists',
+            content_style: "@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&family=Work+Sans&display=swap'); p { font-family: 'Work Sans'!important; line-height: 15px; font-size: 24px; font-weight: 400; } body { font-family: 'Work Sans'!important;}",
+            file_picker_types: 'image',
+            file_picker_callback: function (cb, value, meta) {
+                var input = document.createElement('input');
+                input.setAttribute('type', 'file');
+                input.setAttribute('accept', 'image/*');
+                input.onchange = function () {
+                    var file = this.files[0];
+
+                    var reader = new FileReader();
+                    reader.onload = function () {
+                        var id = 'blobid' + (new Date()).getTime();
+                        var blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                        var base64 = reader.result.split(',')[1];
+                        var blobInfo = blobCache.create(id, file, base64);
+                        blobCache.add(blobInfo);
+
+                        /* call the callback and populate the Title field with the file name */
+                        cb(blobInfo.blobUri(), { title: file.name });
+                    };
+                    reader.readAsDataURL(file);
+                };
+
+                input.click();
+            }
+
+        });
+    </script>
+
+</body>
+
+</html>
