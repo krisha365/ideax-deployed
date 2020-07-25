@@ -21,6 +21,17 @@ deployments:
       componentChart: true
       values:
         containers:
+        - image: "docker.io/bitnami/postgresql:11.5.0-debian-9-r84"
+          volumeMounts:
+          - containerPath: /media
+            volume:
+              name: pvc-a0b281df-cbf5-11ea-b7df-42010a8a001e
+              subPath: /media
+              readOnly: false
+        volumes:
+          - name: data
+            size: "10Gi"
+        containers:
           - image: rahulghetia/ideax # this line may be different for you
             env:
               - name: DB_HOST
@@ -63,3 +74,4 @@ profiles:
         path: images.app.injectRestartHelper
       - op: remove
         path: images.app.appendDockerfileInstructions
+
