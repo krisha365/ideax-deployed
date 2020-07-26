@@ -414,3 +414,52 @@
 </body>
 
 </html>
+
+<script>
+    $(".ch-username").mouseup(function(e) 
+    {
+        var container = $(".content");
+        var bod = $(".ch-username");
+        
+        // if the target of the click isn't the container nor a descendant of the container
+        if (!container.is(e.target) && container.has(e.target).length === 0) 
+        {
+            bod.hide();
+        }
+    });
+
+    $(".ch-bio").mouseup(function(e) 
+    {
+        var container = $(".content");
+        var bod = $(".ch-bio");
+        
+        // if the target of the click isn't the container nor a descendant of the container
+        if (!container.is(e.target) && container.has(e.target).length === 0) 
+        {
+            bod.hide();
+        }
+    });
+
+    $(".ch-location").mouseup(function(e) 
+    {
+        var container = $(".content");
+        var bod = $(".ch-location");
+        // if the target of the click isn't the container nor a descendant of the container
+        if (!container.is(e.target) && container.has(e.target).length === 0) 
+        { 
+            bod.hide();
+        }
+    });
+
+    $(".ch-email").mouseup(function(e) 
+    {
+        var container = $(".content");
+        var bod = $(".ch-email");
+        
+        // if the target of the click isn't the container nor a descendant of the container
+        if (!container.is(e.target) && container.has(e.target).length === 0) 
+        {
+            bod.hide();
+        }
+    });
+</script>
