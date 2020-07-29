@@ -10,6 +10,12 @@ from base64 import b64encode
 import random, os
 from django.contrib.sites import requests
 from datetime import datetime
+from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail 
+from django.core.mail import EmailMultiAlternatives 
+from django.template.loader import get_template 
+from django.template import Context
+
 
 
 # Create your views here.
@@ -205,7 +211,25 @@ def signup(request):
                 context = { "message" : 'Email ID already taken'}
                 messages.info(request, 'Email ID taken')
                 return render(request, 'signup.html', context)
-            else:            
+            else:  
+                '''htmly = get_template('emaill.html') 
+                d = { 'user_name': user_name } 
+                subject = 'welcome'
+                from_email = 'ideaxlive@gmail.com'
+                to = user_email 
+                html_content = htmly.render(d) 
+                msg = EmailMultiAlternatives(subject, html_content, from_email, [to]) 
+                msg.attach_alternative(html_content, "text / html")
+                msg.send()'''
+                send_mail(
+                    'welcome',
+                    'hope you enjoy this',
+                    'ideaxlive@gmail.com',
+                    [user_email], fail_silently = False
+                )
+                ######
+                messages.success(request, f'Your account has been created ! You are now able to create blogs') 
+                ######          
                 user = User.objects.create_user(username=user_name, email=user_email, password=user_password_1, first_name=first_name, last_name=last_name)
                 user.save()
                 user = auth.authenticate(username=user_name, password=user_password_1)
