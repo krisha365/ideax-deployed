@@ -10,9 +10,14 @@ from base64 import b64encode
 import random, os
 from django.contrib.sites import requests
 from datetime import datetime
+from django.contrib.auth import login, authenticate
 from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes, force_text
 from django.core.mail import send_mail 
-from django.core.mail import EmailMultiAlternatives 
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.core.mail import EmailMultiAlternatives, EmailMessage
+from django.template.loader import render_to_string
+from .tokens import account_activation_token
 from django.template.loader import get_template 
 from django.template import Context
 
@@ -20,6 +25,8 @@ from django.template import Context
 
 # Create your views here.
 
+user_name = ""
+user_password_1 = ""
 context1 = {}
 tempt = ""
 
@@ -176,7 +183,26 @@ def preview(request):
     return render(request, "preview.html", context1)
 
 
+def activate(request, uidb64, token):
+    global user_password_1, user_name
+    try:
+        uid = force_text(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+        user_name = request.POST.get('username')
+        user_password_1 = request.POST.get('password')
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+        login(request)
+        # return redirect('home')
 
+        auth.login(request, user)
+        print('user created')
+        return redirect('createblog')
+    else:
+        return HttpResponse('Activation link is invalid!')
 
 
 def createblog(request):
@@ -193,7 +219,9 @@ def createblog(request):
     else:
         return redirect('login')
 
+
 def signup(request):
+    global user_name, user_password_1
     if request.method == 'POST':
         first_name = request.POST['first_name']
         last_name = request.POST['last_name']
@@ -212,28 +240,25 @@ def signup(request):
                 messages.info(request, 'Email ID taken')
                 return render(request, 'signup.html', context)
             else:  
-                '''htmly = get_template('emaill.html') 
-                d = { 'user_name': user_name } 
-                subject = 'welcome'
-                from_email = 'ideaxlive@gmail.com'
-                to = user_email 
-                html_content = htmly.render(d) 
-                msg = EmailMultiAlternatives(subject, html_content, from_email, [to]) 
-                msg.attach_alternative(html_content, "text / html")
-                msg.send()'''
-                send_mail(
-                    'welcome',
-                    'hope you enjoy this',
-                    'ideaxlive@gmail.com',
-                    [user_email], fail_silently = False
-                )
-                ######
-                messages.success(request, f'Your account has been created ! You are now able to create blogs') 
-                ######          
                 user = User.objects.create_user(username=user_name, email=user_email, password=user_password_1, first_name=first_name, last_name=last_name)
                 user.save()
+                current_site = get_current_site(request)
+                mail_subject = 'Activate your blog account.'
+                message = render_to_string('acc_active_email.html', {
+                                'user': user,
+                                'domain': current_site.domain,
+                                'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+                                'token':account_activation_token.make_token(user),
+                                'user_name': user_name,
+                                'password': user_password_1,
+                            })
+                email = EmailMessage(
+                        mail_subject, message, to=[user_email]
+                        )
+                email.send()
+                return HttpResponse('Please confirm your email address to complete the registration')
                 user = auth.authenticate(username=user_name, password=user_password_1)
-                auth.login(request, user)
+                auth.login(request)
                 print('user created')
                 return redirect('createblog')
         else:
