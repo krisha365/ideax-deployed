@@ -7,7 +7,7 @@ import http.server
 import socketserver
 from http import HTTPStatus
 
-PORT = 8080
+PORT = 9080
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ideax.settings')

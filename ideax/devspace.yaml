@@ -1,77 +1,80 @@
 version: v1beta9
 images:
   app:
-    image: rahulghetia/ideax
+    image: dscr.io/${DEVSPACE_USERNAME}/ideax
     preferSyncOverRebuild: true
     injectRestartHelper: true
     appendDockerfileInstructions:
-      - USER root
+    - USER root
 deployments:
-  - name: database
-    helm:
-      chart:
-        name: stable/postgresql
-        version: "6.5.9"
-      values:
-        postgresqlDatabase: "db_mysite"
-        postgresqlUsername: "db_user"
-        postgresqlPassword: ${DB_PASSWORD}
-  - name: ideax # this line may be different for you
-    helm:
-      componentChart: true
-      values:
-        containers:
-        - image: "docker.io/bitnami/postgresql:11.5.0-debian-9-r84"
-          volumeMounts:
-          - containerPath: /media
-            volume:
-              name: pvc-a0b281df-cbf5-11ea-b7df-42010a8a001e
-              subPath: /media
-              readOnly: false
-        volumes:
-          - name: data
-            size: "10Gi"
-        containers:
-          - image: rahulghetia/ideax # this line may be different for you
-            env:
-              - name: DB_HOST
-                value: "database-postgresql"
-              - name: DB_NAME
-                value: "db_mysite"
-              - name: DB_USER
-                value: "db_user"
-              - name: DB_PASSWORD
-                value: ${DB_PASSWORD}
-        service:
-          ports:
-            - port: 9080
-        ingress:
-          tls: true
-          rules:
-            - host: www.ideax.live
-            - host: ideax.live
-              path: /
+- name: virtualdrive
+  helm:
+    componentChart: true
+    values:
+      volumes:
+      - name: data
+        size: "10Gi"
+      containers:
+      - image: dscr.io/${DEVSPACE_USERNAME}/ideax
+        volumeMounts:
+        - containerPath: /media
+          volume:
+            name: data
+            subPath: /media
+            readOnly: false
+- name: database
+  helm:
+    chart:
+      name: stable/postgresql
+      version: "6.5.9"
+    values:
+      postgresqlDatabase: "db_mysite"
+      postgresqlUsername: "db_user"
+      postgresqlPassword: ${DB_PASSWORD}
+- name: ideax
+  helm:
+    componentChart: true
+    values:
+      containers:
+      - image: dscr.io/${DEVSPACE_USERNAME}/ideax
+        env:
+          - name: DB_HOST
+            value: "database-postgresql"
+          - name: DB_NAME
+            value: "db_mysite"
+          - name: DB_USER
+            value: "db_user"
+          - name: DB_PASSWORD
+            value: ${DB_PASSWORD}
+      service:
+        ports:
+        - port: 9080
+      ingress:
+        tls: true
+        rules:
+          - host: www.ideax.live
+          - host: ideax.live
+            path: /
 dev:
   ports:
-    - imageName: app
-      forward:
-        - port: 9080
+  - imageName: app
+    forward:
+    - port: 9080
   open:
-    - url: http://www.ideax.live
+  - url: http://www.ideax.live
   sync:
-    - imageName: app
-      excludePaths:
-        - .git/
-      uploadExcludePaths:
-        - Dockerfile
-        - devspace.yaml
-      onUpload:
-        restartContainer: true
+  - imageName: app
+    excludePaths:
+    - .git/
+    uploadExcludePaths:
+    - Dockerfile
+    - devspace.yaml
+    onUpload:
+      restartContainer: true
 profiles:
-  - name: production
-    patches:
-      - op: remove
-        path: images.app.injectRestartHelper
-      - op: remove
-        path: images.app.appendDockerfileInstructions
-
+- name: production
+  patches:
+  - op: remove
+    path: images.app.injectRestartHelper
+  - op: remove
+    path: images.app.appendDockerfileInstructions
