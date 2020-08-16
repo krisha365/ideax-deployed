@@ -1,6 +1,7 @@
 from django.urls import path
 from django.conf.urls import url
 from . import views
+from django.views.generic import TemplateView
 
 urlpatterns = [
     
@@ -19,6 +20,8 @@ urlpatterns = [
     path('', views.index, name='index'),
         url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         views.activate, name='activate'),
+    TemplateView.as_view(template_name="google.html")),
+    path('accounts/', include('allauth.urls')),
     path('draft/', views.saveDraft, name="saveDraft"),
     path('comment/', views.comment, name="comment")
 ]
